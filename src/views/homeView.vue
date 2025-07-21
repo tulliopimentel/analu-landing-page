@@ -27,7 +27,7 @@
         <div class="text-content">
           <h1 class="animate-on-scroll">Conexões que Constroem. Conversas que Transformam.</h1>
           <p class="animate-on-scroll delay-1">Leve para sua equipe uma nova perspectiva sobre liderança, cultura e inovação através de palestras e mentorias que inspiram a ação.</p>
-          <a href="#contato" class="cta-button animate-on-scroll delay-2">Agende uma Conversa</a>
+          <a href="#contato" class="cta-button animate-on-scroll">Agende uma Conversa</a>
         </div>
         <div class="image-content">
           <img src="../assets/foto5.png" alt="Foto da Palestrante" class="speaker-image animate-on-scroll delay-3">
@@ -45,8 +45,8 @@
             </div>
             <div class="about-text">
               <h2 class="section-title">Sobre Mim</h2>
-              <h3>Uma década dedicada a despertar o potencial humano nas organizações.</h3>
-              <p>Com mais de 10 anos de experiência em desenvolvimento de lideranças e cultura organizacional, minha paixão é criar ambientes onde a comunicação flui e as pessoas prosperam. Acredito que equipes engajadas são o motor para a inovação e o sucesso sustentável. Minha jornada passou por [mencione 1 ou 2 empresas/experiências relevantes], e hoje, como palestrante e mentora, meu objetivo é simples: equipar seus líderes e equipes com as ferramentas para um futuro mais colaborativo e humano.</p>
+              <h3>Meia década dedicada a despertar o potencial humano nas organizações.</h3>
+              <p>Com mais de 5 anos de experiência em desenvolvimento de lideranças e cultura organizacional, minha paixão é criar ambientes onde a comunicação flui e as pessoas prosperam. Acredito que equipes engajadas são o motor para a inovação e o sucesso sustentável. Minha jornada passou por [mencione 1 ou 2 empresas/experiências relevantes], e hoje, como palestrante e mentora, meu objetivo é simples: equipar seus líderes e equipes com as ferramentas para um futuro mais colaborativo e humano.</p>
             </div>
           </div>
         </div>
@@ -480,7 +480,6 @@ html {
 }
 
 .text-content {
-  /* --- AJUSTE 1: Mover foto para a direita (diminuindo espaço do texto) --- */
   max-width: 45%;
   z-index: 2;
 }
@@ -519,7 +518,6 @@ html {
 
 .image-content {
   position: relative;
-  /* --- AJUSTE 1: Mover foto para a direita (aumentando espaço da imagem) --- */
   width: 55%;
   display: flex;
   justify-content: center;
@@ -536,10 +534,9 @@ html {
 
 .background-shape {
   position: absolute;
-  /* --- AJUSTE 2: Aumentar o tamanho da forma de fundo --- */
   width: 120%;
   height: 120%;
-  background-color: rgba(230, 154, 141, 0.1); /* Usando a cor secundária com transparência */
+  background-color: rgba(230, 154, 141, 0.6); 
   border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
   z-index: 0;
   animation: morph 8s ease-in-out infinite;
@@ -827,16 +824,20 @@ html {
   .section-title {
     font-size: 2rem;
   }
+  /* --- CORREÇÃO APLICADA AQUI --- */
   .hero-section {
-      background: var(--color-primary);
-      padding-top: 80px;
+    /* Mantém o fundo dividido no mobile */
+    background: linear-gradient(135deg, var(--color-background) 50%, var(--color-primary) 50%);
+    padding-top: 80px;
   }
   .text-content h1 {
     font-size: 2.8rem;
-    color: var(--color-light);
+    /* Garante que o texto seja legível no fundo dividido */
+    color: var(--color-dark);
   }
   .text-content p {
-    color: rgba(255,255,255,0.9);
+    /* Garante que o texto seja legível no fundo dividido */
+    color: var(--color-dark);
   }
 }
 </style>
