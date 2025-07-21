@@ -142,14 +142,13 @@
           <div class="cta-box">
             <h2>Vamos conversar sobre o futuro da sua equipe?</h2>
             <p>Estou pronta para entender suas necessidades e desenhar uma experiência única para sua empresa. Clique no botão abaixo e vamos iniciar essa conversa.</p>
-            <a href="mailto:seuemail@exemplo.com?subject=Interesse em Palestra" class="cta-button-final">Solicite um Orçamento</a>
+            <a href="https://wa.me/5511912808034?text=Olá, gostaria de saber mais sobre seus serviços" class="cta-button-final">Solicite um Orçamento</a>
           </div>
           <div class="contact-info">
             <p>Ou me encontre nas redes:</p>
             <div class="social-links">
-              <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-              <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-              <a href="mailto:seuemail@exemplo.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+              <a href="https://www.linkedin.com/in/analupuccar/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+              <a href="https://www.instagram.com/analuproductdaily/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             </div>
           </div>
         </div>
