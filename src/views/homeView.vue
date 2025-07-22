@@ -140,7 +140,7 @@
               <img src="https://cdn.worldvectorlogo.com/logos/itau-4.svg" alt="Logo Cliente Itaú BBA">
               <img src="../assets/logo-ifood.png" alt="Logo Cliente Ifood">
               <!-- <img src="../assets/tc.png" alt="Logo Cliente TC"> -->
-              <img src="../assets/superlogica_Logo.png" alt="Logo Cliente Superlógica">
+              <img src="../assets/superlogica_logo.png" alt="Logo Cliente Superlógica">
               <!-- <img src="../assets/rocks.png" alt="Logo Cliente Rocks"> -->
               <img src="../assets/tera_logo.jpg" alt="Logo Cliente Tera">
               <img src="../assets/pcamp-logo.png" alt="Logo Cliente Product Camp">
