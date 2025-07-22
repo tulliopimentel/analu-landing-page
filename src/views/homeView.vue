@@ -109,9 +109,9 @@
           </div>
           <div class="client-logos">
             <p>Empresas que já confiaram no meu trabalho:</p>
-            <div class="logos-slider">
-               <img src="https://cdn.worldvectorlogo.com/logos/microsoft-5.svg" alt="Logo Cliente Microsoft">
-               <img src="https://cdn.worldvectorlogo.com/logos/netflix-2.svg" alt="Logo Cliente Netflix">
+           <div class="logos-slider">
+              <img src="../assets/mercado-livre.png" alt="Logo Cliente Mercado Livre">
+              <img src="https://cdn.worldvectorlogo.com/logos/itau-4.svg" alt="Logo Cliente Itaú">
             </div>
           </div>
         </div>
@@ -705,8 +705,8 @@ html {
     flex-wrap: wrap;
 }
 .logos-slider img {
-    height: 35px;
-    opacity: 0.6;
+    height: 90px;
+    opacity: 0.8;
     transition: opacity 0.3s ease;
 }
 .logos-slider img:hover {
