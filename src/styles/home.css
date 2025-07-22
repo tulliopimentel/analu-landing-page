@@ -145,6 +145,10 @@ html {
 
 /* Estilos do Menu Mobile */
 @media (max-width: 992px) {
+    .topics-accordion {
+  max-width: 100%;
+  margin: 0 auto;
+}
   .nav-links {
     position: fixed;
     top: 0;
@@ -385,7 +389,7 @@ html {
   padding: 4rem 0;
 }
 .topics-accordion {
-  max-width: 800px;
+  max-width: 100%;
   margin: 0 auto;
 }
 .topic-item {
@@ -417,7 +421,7 @@ html {
   transition: max-height 0.5s ease-out, padding 0.5s ease;
 }
 .topic-content.active {
-  max-height: 200px;
+  max-height: 100%;
   transition: max-height 0.5s ease-in;
 }
 .topic-content p {
@@ -655,6 +659,10 @@ html {
 
 /* Responsividade */
 @media (max-width: 992px) {
+  .topics-accordion {
+  max-width: 100%;
+  margin: 0 auto;
+    }
   .hero-content {
     flex-direction: column;
     text-align: center;
@@ -677,6 +685,10 @@ html {
   }
 }
 @media (max-width: 768px) {
+.topics-accordion {
+  max-width: 100%;
+  margin: 0 auto;
+  }
   .section-title {
     font-size: 2rem;
   }
