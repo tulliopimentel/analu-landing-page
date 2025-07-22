@@ -69,7 +69,7 @@
             <div class="service-card">
               <div class="service-icon"><i class="fas fa-hands-helping"></i></div>
               <h4>Mentoria Executiva</h4>
-              <p>Sessões individuais ou em grupo para líderes que buscam aprimorar suas habilidades de gestão e liderança humanizada.</p>
+              <p>Sessões individuais para profissionais que buscam aprimorar suas habilidades de gestão, liderança humanizada ou dar um salto na carreira.</p>
             </div>
           </div>
         </div>
@@ -110,11 +110,8 @@
           <div class="client-logos">
             <p>Empresas que já confiaram no meu trabalho:</p>
             <div class="logos-slider">
-               <img src="https://cdn.worldvectorlogo.com/logos/google-2015.svg" alt="Logo Cliente Google">
                <img src="https://cdn.worldvectorlogo.com/logos/microsoft-5.svg" alt="Logo Cliente Microsoft">
-               <img src="https://cdn.worldvectorlogo.com/logos/amazon-2.svg" alt="Logo Cliente Amazon">
                <img src="https://cdn.worldvectorlogo.com/logos/netflix-2.svg" alt="Logo Cliente Netflix">
-               <img src="https://cdn.worldvectorlogo.com/logos/spotify-1.svg" alt="Logo Cliente Spotify">
             </div>
           </div>
         </div>
