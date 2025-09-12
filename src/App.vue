@@ -1,16 +1,18 @@
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+  <HomeView />
+  
 </template>
 
-<script>
-export default {
-  name: 'App',
-}
+<script setup>
+import HomeView from './views/homeView.vue'
+import { onMounted } from 'vue'
+import { initHomeInteractions } from './scripts/home.js'
+
+onMounted(() => {
+  initHomeInteractions()
+})
 </script>
 
 <style>
-/* Estilos globais para a aplicação, se houver */
-/* Preferencialmente, use o src/styles/main.css para isso */
+/* Estilos globais podem ir em src/styles/main.css */
 </style>
