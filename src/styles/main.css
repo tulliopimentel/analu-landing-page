@@ -82,6 +82,10 @@ body { margin: 0; font-family: Georgia, "Times New Roman", Times, serif; color: 
   .nav__list a { font-size: 1.2rem; color: var(--green-dark); }
   .nav--open .nav__list { visibility: visible; opacity: 1; transform: translateY(0); }
   .nav--open .nav__toggle { position: fixed; right: 16px; top: 12px; z-index: 2100; }
+  .nav__brand { position: absolute; bottom: 16px; left: 16px; }
+  .nav__brand a { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--green-dark); }
+  .nav__brand img { height: 32px; width: auto; opacity: .95; }
+  .nav__brand span { font-family: 'Lusitana', Georgia, serif; font-size: 1.1rem; }
 }
 
 /* Evita rolar a página com o menu aberto */

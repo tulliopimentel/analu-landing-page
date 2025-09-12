@@ -20,6 +20,12 @@
             <li><a href="#pontos">Pontos</a></li>
             <li><a href="#videos">Vídeos</a></li>
             <li><a href="#contato">Contato</a></li>
+            <li class="nav__brand">
+              <a href="#topo" aria-label="Voltar ao topo">
+                <img src="../assets/logo.png" alt="Logo Super Sopro" />
+                <span>Super Sopro</span>
+              </a>
+            </li>
           </ul>
         </nav>
       </div>
