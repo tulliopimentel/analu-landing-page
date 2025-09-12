@@ -62,7 +62,7 @@
           <div class="gallery reveal-on-scroll">
             <img src="../assets/foto12.jpg" alt="Produção de frascos" />
             <img src="../assets/foto10.jpg" alt="Linha de produção" />
-            <img src="../assets/foto9.jpg" alt="Estoque de embalagens" />
+            <img src="../assets/foto3.jpg" alt="Estoque de embalagens"/>
           </div>
         </div>
         <div class="container reveal-on-scroll">
