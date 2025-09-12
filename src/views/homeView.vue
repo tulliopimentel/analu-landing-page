@@ -38,7 +38,7 @@
       <!-- Hero -->
       <section class="hero section" aria-label="Apresentação">
         <picture>
-          <img src="../assets/foto1.jpg" alt="Imagem de embalagens sustentáveis" class="hero__bg" />
+          <img src="../assets/foto4.jpg" alt="Imagem de embalagens sustentáveis" class="hero__bg" />
         </picture>
         <div class="container hero__content reveal-on-scroll">
           <h1 class="hero__title">Plástico com responsabilidade</h1>
@@ -60,9 +60,9 @@
             <p>Nossa missão é conscientizar a sociedade sobre o consumo sustentável e a importância da preservação, estendendo esse impacto para a cidade, o estado e o mundo.</p>
           </div>
           <div class="gallery reveal-on-scroll">
-            <img src="../assets/foto1.jpg" alt="Produção de frascos" />
-            <img src="../assets/foto1.jpg" alt="Linha de produção" />
-            <img src="../assets/foto1.jpg" alt="Estoque de embalagens" />
+            <img src="../assets/foto12.jpg" alt="Produção de frascos" />
+            <img src="../assets/foto10.jpg" alt="Linha de produção" />
+            <img src="../assets/foto9.jpg" alt="Estoque de embalagens" />
           </div>
         </div>
         <div class="container reveal-on-scroll">
