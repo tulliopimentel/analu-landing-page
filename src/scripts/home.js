@@ -113,36 +113,108 @@ export function initHomeInteractions() {
 
   // Dots do carrossel (mobile)
   if (catalogTrack && catalogDots) {
-    const makeDots = () => {
+    const getPageSize = () => catalogTrack.clientWidth
+    const getTotalWidth = () => catalogTrack.scrollWidth
+    const computePageCount = () => Math.max(1, Math.ceil(getTotalWidth() / getPageSize()))
+
+    const renderDots = () => {
+      const pages = computePageCount()
       catalogDots.innerHTML = ''
-      images.forEach((_, i) => {
+      for (let i = 0; i < pages; i += 1) {
         const dot = document.createElement('span')
         dot.className = 'carousel-dot'
         dot.setAttribute('aria-current', i === 0 ? 'true' : 'false')
         dot.addEventListener('click', () => {
-          const card = catalogButtons[i]
-          if (card) card.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' })
+          catalogTrack.scrollTo({ left: i * getPageSize(), behavior: 'smooth' })
         })
         catalogDots.appendChild(dot)
-      })
+      }
     }
-    makeDots()
+    const updateActiveDot = () => {
+      const pages = computePageCount()
+      const dots = catalogDots.querySelectorAll('.carousel-dot')
+      if (!dots.length) return
+      const rawIndex = Math.round(catalogTrack.scrollLeft / getPageSize())
+      const idx = Math.min(Math.max(rawIndex, 0), pages - 1)
+      dots.forEach((d, i) => d.setAttribute('aria-current', i === idx ? 'true' : 'false'))
+    }
+    renderDots()
+    updateActiveDot()
+    let ticking = false
+    catalogTrack.addEventListener('scroll', () => {
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(() => {
+        updateActiveDot()
+        ticking = false
+      })
+    })
+    window.addEventListener('resize', () => {
+      const currentPage = Math.round(catalogTrack.scrollLeft / getPageSize())
+      renderDots()
+      updateActiveDot()
+      catalogTrack.scrollTo({ left: currentPage * getPageSize() })
+    })
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const el = entry.target
-            const idx = Number(el.getAttribute('data-catalog-index')) || 0
-            const dots = catalogDots.querySelectorAll('.carousel-dot')
-            dots.forEach((d, i) => d.setAttribute('aria-current', i === idx ? 'true' : 'false'))
-          }
-        })
-      },
-      { root: catalogTrack, threshold: 0.6 }
-    )
+    // Drag-scroll unificado (mouse e touch via Pointer Events; com fallback para touch)
+    let pointerDown = false
+    let startX = 0
+    let startScrollLeft = 0
+    let dragged = false
+    let suppressClick = false
 
-    catalogButtons.forEach((el) => observer.observe(el))
+    const onPointerDown = (clientX) => {
+      pointerDown = true
+      dragged = false
+      catalogTrack.classList.add('is-dragging')
+      startX = clientX
+      startScrollLeft = catalogTrack.scrollLeft
+    }
+    const onPointerMove = (clientX, evt) => {
+      if (!pointerDown) return
+      const delta = clientX - startX
+      if (Math.abs(delta) > 3) dragged = true
+      catalogTrack.scrollLeft = startScrollLeft - delta
+      if (evt) evt.preventDefault()
+    }
+    const onPointerUp = () => {
+      pointerDown = false
+      catalogTrack.classList.remove('is-dragging')
+      if (dragged) {
+        suppressClick = true
+        setTimeout(() => { suppressClick = false }, 60)
+      }
+    }
+
+    // Pointer events (cobre mouse e a maioria dos navegadores mobile)
+    catalogTrack.addEventListener('pointerdown', (e) => {
+      // Captura o ponteiro para continuar recebendo eventos durante o arraste
+      try { if (e.pointerId != null) catalogTrack.setPointerCapture(e.pointerId) } catch {}
+      e.preventDefault()
+      onPointerDown(e.clientX)
+    })
+    catalogTrack.addEventListener('pointermove', (e) => onPointerMove(e.clientX, e))
+    catalogTrack.addEventListener('pointerup', (e) => {
+      try { if (e.pointerId != null) catalogTrack.releasePointerCapture(e.pointerId) } catch {}
+      onPointerUp()
+    })
+    catalogTrack.addEventListener('pointercancel', onPointerUp)
+
+    // Fallback para touch (iOS antigos)
+    catalogTrack.addEventListener('touchstart', (e) => onPointerDown(e.touches[0].clientX), { passive: false })
+    catalogTrack.addEventListener('touchmove', (e) => onPointerMove(e.touches[0].clientX, e), { passive: false })
+    catalogTrack.addEventListener('touchend', onPointerUp)
+
+    // Evita comportamento nativo de arrastar imagens e abrir lightbox ao arrastar
+    catalogTrack.querySelectorAll('img').forEach((img) => {
+      img.addEventListener('dragstart', (ev) => ev.preventDefault())
+    })
+    catalogButtons.forEach((btn, idx) => {
+      btn.addEventListener('click', (ev) => {
+        if (suppressClick) { ev.preventDefault(); return }
+        openLightbox(idx)
+      })
+    })
   }
 }
 
