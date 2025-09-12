@@ -188,14 +188,14 @@ export function initHomeInteractions() {
 
     // Pointer events (cobre mouse e a maioria dos navegadores mobile)
     catalogTrack.addEventListener('pointerdown', (e) => {
-      // Captura o ponteiro para continuar recebendo eventos durante o arraste
-      try { if (e.pointerId != null) catalogTrack.setPointerCapture(e.pointerId) } catch {}
+      // Captura o ponteiro no ALVO real (button/img) para seguir recebendo eventos durante o arraste
+      try { if (e.pointerId != null && e.target && typeof e.target.setPointerCapture === 'function') e.target.setPointerCapture(e.pointerId) } catch {}
       e.preventDefault()
       onPointerDown(e.clientX)
     })
     catalogTrack.addEventListener('pointermove', (e) => onPointerMove(e.clientX, e))
     catalogTrack.addEventListener('pointerup', (e) => {
-      try { if (e.pointerId != null) catalogTrack.releasePointerCapture(e.pointerId) } catch {}
+      try { if (e.pointerId != null && e.target && typeof e.target.releasePointerCapture === 'function') e.target.releasePointerCapture(e.pointerId) } catch {}
       onPointerUp()
     })
     catalogTrack.addEventListener('pointercancel', onPointerUp)
@@ -215,6 +215,38 @@ export function initHomeInteractions() {
         openLightbox(idx)
       })
     })
+  }
+
+  // Gestos na imagem do lightbox (troca ao deslizar)
+  if (lightboxImg) {
+    let lbPointerDown = false
+    let lbStartX = 0
+    let lbMoved = false
+
+    const lbDown = (x) => { lbPointerDown = true; lbMoved = false; lbStartX = x }
+    const lbMove = (x, e) => {
+      if (!lbPointerDown) return
+      if (Math.abs(x - lbStartX) > 6) lbMoved = true
+      if (e) e.preventDefault()
+    }
+    const lbUp = (x) => {
+      if (!lbPointerDown) return
+      const delta = x - lbStartX
+      lbPointerDown = false
+      if (Math.abs(delta) > 40) {
+        if (delta < 0) showNext()
+        else showPrev()
+      }
+    }
+
+    lightboxImg.addEventListener('pointerdown', (e) => { e.preventDefault(); lbDown(e.clientX) })
+    lightboxImg.addEventListener('pointermove', (e) => lbMove(e.clientX, e))
+    lightboxImg.addEventListener('pointerup', (e) => lbUp(e.clientX))
+    lightboxImg.addEventListener('pointercancel', () => { lbPointerDown = false })
+    // Fallback touch
+    lightboxImg.addEventListener('touchstart', (e) => lbDown(e.touches[0].clientX), { passive: false })
+    lightboxImg.addEventListener('touchmove', (e) => lbMove(e.touches[0].clientX, e), { passive: false })
+    lightboxImg.addEventListener('touchend', (e) => { const t = e.changedTouches && e.changedTouches[0]; lbUp(t ? t.clientX : lbStartX) })
   }
 }
 
