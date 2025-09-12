@@ -211,9 +211,10 @@ body { margin: 0; font-family: Georgia, "Times New Roman", Times, serif; color: 
     transform: translateY(-6px);
     transition: opacity .25s ease, transform .25s ease, visibility .25s;
     z-index: 2000;
+    pointer-events: none;
   }
   .nav__list a { font-size: 1.2rem; color: var(--green-dark); }
-  .nav--open .nav__list { visibility: visible; opacity: 1; transform: translateY(0); }
+  .nav--open .nav__list { visibility: visible; opacity: 1; transform: translateY(0); pointer-events: auto; }
   .nav--open .nav__toggle { position: fixed; right: 16px; top: 12px; z-index: 2100; }
   .nav__brand { display: block; position: absolute; bottom: 16px; left: 16px; }
   .nav__brand a { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--green-dark); }

@@ -6,7 +6,6 @@ export function initHomeInteractions() {
   if (toggle && nav && menu) {
     const setState = (open) => {
       nav.classList.toggle('nav--open', open)
-      document.documentElement.classList.toggle('menu-open', open)
       toggle.setAttribute('aria-expanded', String(open))
       toggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu')
     }
@@ -25,6 +24,12 @@ export function initHomeInteractions() {
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') setState(false)
     })
+
+    // Fechar menu ao redimensionar para desktop e garantir desbloqueio do scroll
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 900 && nav.classList.contains('nav--open')) setState(false)
+    })
+    window.addEventListener('orientationchange', () => setState(false))
   }
 
   const observer = new IntersectionObserver(
