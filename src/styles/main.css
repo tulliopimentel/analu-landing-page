@@ -18,13 +18,13 @@ body { margin: 0; font-family: Georgia, "Times New Roman", Times, serif; color: 
 .section { position: relative; padding: 96px 0; scroll-margin-top: 84px; }
 .section--light { background: var(--surface); }
 .section--brand {
+  /* Visual claro e minimalista: imagem suave com véu branco */
   background:
-    radial-gradient(1000px 500px at 10% 10%, rgba(0,157,54,0.14), transparent),
-    linear-gradient(180deg, rgba(12,117,48,0.88), rgba(12,117,48,0.92)),
+    linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.94)),
     url('../assets/foto1.jpg') center/cover no-repeat;
-  color: var(--white);
+  color: var(--text);
 }
-.section--dark { background: linear-gradient(180deg, #0c7530, #075324); color: var(--white); }
+.section--dark { background: linear-gradient(180deg, #ffffff, #f4f6f4); color: var(--text); }
 .section--image-bg { color: var(--white); }
 .section__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(95%) contrast(105%); z-index: -2; }
 .section--image-bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.35)); z-index: -1; }
@@ -94,10 +94,15 @@ body { margin: 0; font-family: Georgia, "Times New Roman", Times, serif; color: 
 
 /* Contato */
 .contact { background: linear-gradient(180deg, #f4f7f4, #eef3ef); }
+.contact .reveal-on-scroll, #contato .reveal-on-scroll { opacity: 1; transform: none; }
+.contact-grid { align-items: start; }
 .contact__list { display: grid; gap: 12px; padding: 0; margin: 0; list-style: none; }
 .contact__list li { display: grid; grid-template-columns: 24px 1fr; align-items: center; gap: 10px; }
 .contact__list a { color: var(--green-dark); text-decoration: none; }
 .contact__list svg { width: 20px; height: 20px; fill: var(--green-brand); }
+
+.map-frame { aspect-ratio: 16 / 12; min-height: 280px; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-soft); background: #dfe7e1; }
+.map-frame iframe { width: 100%; height: 100%; border: 0; display: block; filter: grayscale(30%) contrast(105%); }
 
 .site-footer { border-top: 1px solid rgba(0,0,0,0.06); background: #ffffff; }
 .footer-wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 0; }

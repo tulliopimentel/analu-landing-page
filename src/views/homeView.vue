@@ -131,8 +131,9 @@
     </main>
 
     <section id="contato" class="section contact">
-      <div class="container narrow reveal-on-scroll">
+      <div class="container reveal-on-scroll">
         <h2 class="section__title">Contato</h2>
+        <div class="grid grid--2col contact-grid">
         <ul class="contact__list" role="list">
           <li>
             <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.03 2 11.38c0 4.16 2.99 7.65 7.1 8.57.52.1.72-.21.72-.5 0-.25-.01-.92-.01-1.81-2.89.61-3.5-1.36-3.5-1.36-.47-1.15-1.15-1.46-1.15-1.46-.94-.62.07-.61.07-.61 1.04.07 1.59 1.04 1.59 1.04.93 1.56 2.44 1.11 3.04.85.09-.65.36-1.11.65-1.37-2.31-.25-4.74-1.11-4.74-4.94 0-1.09.4-1.98 1.05-2.68-.11-.26-.46-1.29.1-2.69 0 0 .86-.27 2.8 1.02A9.9 9.9 0 0 1 12 7.07c.87.01 1.75.12 2.57.34 1.93-1.29 2.8-1.02 2.8-1.02.56 1.4.21 2.43.1 2.69.65.7 1.05 1.59 1.05 2.68 0 3.85-2.44 4.68-4.76 4.93.37.31.7.91.7 1.84 0 1.33-.01 2.4-.01 2.73 0 .3.2.62.73.51A9.41 9.41 0 0 0 22 11.38C22 6.03 17.52 2 12 2Z"/></svg>
@@ -155,6 +156,15 @@
             <span>Parque Industrial, S/N – Bloco 02, Itaí – SP</span>
           </li>
         </ul>
+        <div class="map-frame">
+          <iframe
+            src="https://www.google.com/maps?q=Parque%20Industrial%2C%20S%2FN%20%E2%80%93%20Bloco%2002%2C%20Ita%C3%AD%20-%20SP&hl=pt-BR&z=15&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+          ></iframe>
+        </div>
+        </div>
       </div>
     </section>
 
