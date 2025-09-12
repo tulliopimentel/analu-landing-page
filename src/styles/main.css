@@ -158,7 +158,7 @@ body { margin: 0; font-family: Georgia, "Times New Roman", Times, serif; color: 
 .grid { display: grid; gap: 28px; }
 .grid--2col { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 @media (max-width: 900px) { .grid--2col { grid-template-columns: 1fr; } }
-.grid--4col { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.grid--4col { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 @media (max-width: 1100px) { .grid--4col { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .grid--4col { grid-template-columns: 1fr; } }
 /* Catálogo grid */
@@ -260,6 +260,19 @@ html.menu-open, html.menu-open body { overflow: hidden; }
 .catalog-card { padding: 0; border: none; background: transparent; cursor: zoom-in; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-soft); }
 .catalog-card img { width: 100%; height: 100%; display: block; object-fit: cover; aspect-ratio: 3 / 4; filter: saturate(96%) contrast(102%); transition: transform .3s ease, filter .3s ease; }
 .catalog-card:hover img, .catalog-card:focus-visible img { transform: scale(1.02); filter: saturate(102%) contrast(106%); }
+
+/* Carrossel mobile para catálogo */
+@media (max-width: 560px) {
+  #catalogTrack { display: grid; grid-auto-flow: column; grid-auto-columns: 88%; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom: 8px; }
+  #catalogTrack > .catalog-card { scroll-snap-align: start; }
+  #catalogTrack::-webkit-scrollbar { display: none; }
+  .catalog-card img { aspect-ratio: 4 / 5; }
+}
+
+.carousel-dots { display: none; justify-content: center; gap: 8px; margin-top: 12px; }
+@media (max-width: 560px) { .carousel-dots { display: flex; } }
+.carousel-dot { width: 8px; height: 8px; border-radius: 999px; background: #d0d7d0; transition: background .2s ease, transform .2s ease; }
+.carousel-dot[aria-current="true"] { background: rgba(0, 157, 54); transform: scale(1.15); }
 
 /* Lightbox */
 .lightbox { position: fixed; inset: 0; background: rgba(10,14,12,.86); display: none; align-items: center; justify-content: center; z-index: 3000; }

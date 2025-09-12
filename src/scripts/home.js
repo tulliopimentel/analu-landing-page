@@ -51,6 +51,8 @@ export function initHomeInteractions() {
 
   // Lightbox Catálogo
   const catalogButtons = Array.from(document.querySelectorAll('.catalog-card'))
+  const catalogTrack = document.getElementById('catalogTrack')
+  const catalogDots = document.getElementById('catalogDots')
   const lightbox = document.getElementById('lightbox')
   const lightboxImg = document.getElementById('lightboxImg')
   const btnClose = document.getElementById('lightboxClose')
@@ -108,6 +110,40 @@ export function initHomeInteractions() {
     if (e.key === 'ArrowRight') showNext()
     if (e.key === 'ArrowLeft') showPrev()
   })
+
+  // Dots do carrossel (mobile)
+  if (catalogTrack && catalogDots) {
+    const makeDots = () => {
+      catalogDots.innerHTML = ''
+      images.forEach((_, i) => {
+        const dot = document.createElement('span')
+        dot.className = 'carousel-dot'
+        dot.setAttribute('aria-current', i === 0 ? 'true' : 'false')
+        dot.addEventListener('click', () => {
+          const card = catalogButtons[i]
+          if (card) card.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' })
+        })
+        catalogDots.appendChild(dot)
+      })
+    }
+    makeDots()
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const el = entry.target
+            const idx = Number(el.getAttribute('data-catalog-index')) || 0
+            const dots = catalogDots.querySelectorAll('.carousel-dot')
+            dots.forEach((d, i) => d.setAttribute('aria-current', i === idx ? 'true' : 'false'))
+          }
+        })
+      },
+      { root: catalogTrack, threshold: 0.6 }
+    )
+
+    catalogButtons.forEach((el) => observer.observe(el))
+  }
 }
 
 

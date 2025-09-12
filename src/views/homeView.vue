@@ -221,7 +221,7 @@
       <section id="catalogo" class="section section--light">
         <div class="container reveal-on-scroll">
           <h2 class="section__title">Catálogo</h2>
-          <div class="grid catalog-grid" aria-label="Páginas do catálogo">
+          <div id="catalogTrack" class="grid catalog-grid" aria-label="Páginas do catálogo">
             <button class="catalog-card" type="button" data-catalog-index="0" aria-label="Abrir página 1 do catálogo">
               <img src="../assets/foto1.jpg" alt="Página 1 do catálogo" loading="lazy" />
             </button>
@@ -247,6 +247,7 @@
               <img src="../assets/foto1.jpg" alt="Página 8 do catálogo" loading="lazy" />
             </button>
           </div>
+          <div class="carousel-dots" id="catalogDots" aria-hidden="false"></div>
         </div>
       </section>
 
