@@ -111,7 +111,7 @@
 
       <!-- Compromisso Ambiental -->
       <section id="compromisso" class="section section--image-bg">
-        <img src="../assets/foto1.jpg" alt="Natureza e embalagens" class="section__bg" />
+        <img src="../assets/foto6.jpg" alt="Natureza e embalagens" class="section__bg" />
         <div class="container narrow reveal-on-scroll">
           <h2 class="section__title">Compromisso Ambiental</h2>
           <p>Nosso maior compromisso é causar o menor impacto possível ao meio ambiente. Sabemos que a produção de plástico é uma das maiores causadoras de poluição. Por isso, renovamos e implementamos a produção de plástico biodegradável, que pode ser aplicada em 100% dos nossos frascos.</p>
