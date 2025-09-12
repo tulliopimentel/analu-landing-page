@@ -25,6 +25,9 @@
                 <img src="../assets/logo.png" alt="Logo Super Sopro" />
                 <span>Super Sopro</span>
               </a>
+              <div class="nav__copyright">
+                <span>Todos os direitos reservados.</span>
+              </div>
             </li>
           </ul>
         </nav>
@@ -176,8 +179,22 @@
 
     <footer class="site-footer">
       <div class="container footer-wrap">
-        <img src="../assets/logo.png" alt="Logo Super Sopro" />
-        <p>© <span id="year"></span> Super Sopro Embalagens. Todos os direitos reservados.</p>
+        <div class="footer-mobile-stack">
+          <div class="footer-copyright">© <span id="year"></span> Super Sopro Embalagens</div>
+          <div class="footer-reserved">Todos os direitos reservados.</div>
+          <div class="footer-bartech">Desenvolvido por <a href="https://bartechsoftware.com.br/" target="_blank" rel="noopener">Bartech</a></div>
+        </div>
+        <div class="footer-desktop">
+          <div class="footer-left">
+            <img src="../assets/logo.png" alt="Logo Super Sopro" />
+          </div>
+          <div class="footer-center">
+            <p class="footer-copyright">© <span id="year"></span> Super Sopro Embalagens. Todos os direitos reservados.</p>
+          </div>
+          <div class="footer-right">
+            <small class="footer-bartech">Desenvolvido por <a href="https://bartechsoftware.com.br/" target="_blank" rel="noopener">Bartech</a></small>
+          </div>
+        </div>
       </div>
     </footer>
   </div>
