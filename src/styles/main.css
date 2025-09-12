@@ -38,6 +38,7 @@
   .footer-desktop {
     display: none;
   }
+  .footer-mobile-stack .footer-bartech { margin-top: 20px; }
 }
 
 /* --- Custom Footer Layout --- */
