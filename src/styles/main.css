@@ -252,6 +252,8 @@ html.menu-open, html.menu-open body { overflow: hidden; }
 .video-card figcaption { margin-top: 4px; color: var(--muted); font-size: .95rem; }
 .video-frame { aspect-ratio: 16 / 9; background: #0b2315; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-soft); }
 .video-frame iframe { width: 100%; height: 100%; display: block; }
+/* Espaçamento extra para vídeos na seção Sobre */
+#sobre .videos { margin-top: 50px; }
 
 /* Catálogo */
 .catalog-card { padding: 0; border: none; background: transparent; cursor: zoom-in; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-soft); }

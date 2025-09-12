@@ -19,7 +19,6 @@
             <li><a href="#compromisso">Compromisso</a></li>
             <li><a href="#pontos">Pontos</a></li>
             <li><a href="#catalogo">Catálogo</a></li>
-            <li><a href="#videos">Vídeos</a></li>
             <li><a href="#contato">Contato</a></li>
             <li class="nav__brand">
               <a href="#topo" aria-label="Voltar ao topo">
@@ -64,6 +63,40 @@
             <img src="../assets/foto1.jpg" alt="Produção de frascos" />
             <img src="../assets/foto1.jpg" alt="Linha de produção" />
             <img src="../assets/foto1.jpg" alt="Estoque de embalagens" />
+          </div>
+        </div>
+        <div class="container reveal-on-scroll">
+          <div class="grid grid--2col videos">
+            <figure class="video-card">
+              <div class="video-frame">
+                <iframe
+                  width="560"
+                  height="315"
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1&rel=0&modestbranding=1&list=RDdQw4w9WgXcQ&start_radio=1"
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen
+                ></iframe>
+              </div>
+              <figcaption>Apresentação da empresa</figcaption>
+            </figure>
+            <figure class="video-card">
+              <div class="video-frame">
+                <iframe
+                  width="560"
+                  height="315"
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1&rel=0&modestbranding=1&list=RDdQw4w9WgXcQ&start_radio=1"
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen
+                ></iframe>
+              </div>
+              <figcaption>Tour pela fábrica</figcaption>
+            </figure>
           </div>
         </div>
       </section>
@@ -217,44 +250,7 @@
         </div>
       </section>
 
-      <!-- Vídeos -->
-      <section id="videos" class="section section--light">
-        <div class="container reveal-on-scroll">
-          <h2 class="section__title">Vídeos</h2>
-          <div class="grid grid--2col videos">
-            <figure class="video-card">
-              <div class="video-frame">
-                <iframe
-                  width="560"
-                  height="315"
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1&rel=0&modestbranding=1&list=RDdQw4w9WgXcQ&start_radio=1"
-                  title="YouTube video player"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerpolicy="strict-origin-when-cross-origin"
-                  allowfullscreen
-                ></iframe>
-              </div>
-              <figcaption>Apresentação da empresa</figcaption>
-            </figure>
-            <figure class="video-card">
-              <div class="video-frame">
-                <iframe
-                  width="560"
-                  height="315"
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1&rel=0&modestbranding=1&list=RDdQw4w9WgXcQ&start_radio=1"
-                  title="YouTube video player"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerpolicy="strict-origin-when-cross-origin"
-                  allowfullscreen
-                ></iframe>
-              </div>
-              <figcaption>Tour pela fábrica</figcaption>
-            </figure>
-          </div>
-        </div>
-      </section>
+      
     </main>
 
     <!-- Lightbox do Catálogo -->
