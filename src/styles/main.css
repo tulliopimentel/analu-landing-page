@@ -68,20 +68,20 @@ body { margin: 0; font-family: Georgia, "Times New Roman", Times, serif; color: 
     width: 100vw;
     height: 100vh;
     background: var(--surface);
-    padding: 24px 24px 48px;
+    padding: 72px 24px 32px;
     display: grid;
-    align-content: center;
-    justify-items: center;
-    gap: 18px;
+    align-content: start;
+    justify-items: start;
+    gap: 16px;
     visibility: hidden;
     opacity: 0;
     transform: translateY(-6px);
     transition: opacity .25s ease, transform .25s ease, visibility .25s;
     z-index: 2000;
   }
-  .nav__list a { font-size: 1.4rem; color: var(--green-dark); }
+  .nav__list a { font-size: 1.2rem; color: var(--green-dark); }
   .nav--open .nav__list { visibility: visible; opacity: 1; transform: translateY(0); }
-  .nav--open .nav__toggle { position: fixed; right: 16px; top: 12px; z-index: 1101; }
+  .nav--open .nav__toggle { position: fixed; right: 16px; top: 12px; z-index: 2100; }
 }
 
 /* Evita rolar a página com o menu aberto */
