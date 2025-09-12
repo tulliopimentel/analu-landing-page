@@ -6,6 +6,7 @@ export function initHomeInteractions() {
   if (toggle && nav && menu) {
     const setState = (open) => {
       nav.classList.toggle('nav--open', open)
+      document.documentElement.classList.toggle('menu-open', open)
       toggle.setAttribute('aria-expanded', String(open))
       toggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu')
     }
@@ -18,6 +19,11 @@ export function initHomeInteractions() {
     menu.addEventListener('click', (e) => {
       const t = e.target
       if (t && t.tagName === 'A') setState(false)
+    })
+
+    // Fechar com ESC
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setState(false)
     })
   }
 

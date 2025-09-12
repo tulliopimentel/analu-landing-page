@@ -1,6 +1,6 @@
 :root {
-  --green-dark: #0c7530;
-  --green-brand: #009d36;
+  --green-dark: #0b6a2c; /* ligeiro ajuste para combinar com mídia kit */
+  --green-brand: #009d36; /* cor da logo */
   --surface: #f6f8f6;
   --text: #0e1a12;
   --muted: #617263;
@@ -61,9 +61,31 @@ body { margin: 0; font-family: Georgia, "Times New Roman", Times, serif; color: 
 .nav--open .nav__toggle .bar:nth-child(3) { bottom: auto; top: 12.5px; transform: rotate(-45deg); }
 @media (max-width: 900px) {
   .nav__toggle { display: inline-block; }
-  .nav__list { position: absolute; top: calc(100% + 12px); right: 0; background: var(--surface); border: 1px solid rgba(0,0,0,0.06); border-radius: 10px; padding: 10px 14px; display: grid; gap: 10px; visibility: hidden; opacity: 0; transform: translateY(-6px); transition: opacity .25s ease, transform .25s ease, visibility .25s; }
+  /* Overlay full-screen */
+  .nav__list {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--surface);
+    padding: 24px 24px 48px;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: 18px;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity .25s ease, transform .25s ease, visibility .25s;
+    z-index: 2000;
+  }
+  .nav__list a { font-size: 1.4rem; color: var(--green-dark); }
   .nav--open .nav__list { visibility: visible; opacity: 1; transform: translateY(0); }
+  .nav--open .nav__toggle { position: fixed; right: 16px; top: 12px; z-index: 1101; }
 }
+
+/* Evita rolar a página com o menu aberto */
+html.menu-open, html.menu-open body { overflow: hidden; }
 
 /* Hero */
 .hero { min-height: clamp(60vh, 70vh, 84vh); display: grid; align-items: center; overflow: hidden; }
