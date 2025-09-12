@@ -133,86 +133,80 @@
         </div>
       </section>
 
-      <!-- Processos e Qualidade (4 vídeos) -->
-      <section id="processos" class="section section--light">
+      <!-- Processos e Qualidade (refatorado sem cards) -->
+      <section id="processos" class="section section--light quality">
         <div class="container reveal-on-scroll">
           <h2 class="section__title">Processos e Qualidade</h2>
-          <div class="grid grid--4col videos">
-            <figure class="video-card">
-              <div class="video-frame">
-                <iframe
-                  width="560"
-                  height="315"
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1&rel=0&modestbranding=1&list=RDdQw4w9WgXcQ&start_radio=1"
-                  title="YouTube video player"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerpolicy="strict-origin-when-cross-origin"
-                  allowfullscreen
-                ></iframe>
-              </div>
-              <figcaption>
-                <h3>Formatos e cores</h3>
-                <p>Qualidade com a paleta que você precisa, nos formatos que seu produto exige.</p>
-              </figcaption>
-            </figure>
+          <p class="quality__intro">Mais do que fabricar embalagens, nós desenhamos experiências seguras e sustentáveis. Do design ao descarte, cada etapa é acompanhada por controles rigorosos, reaproveitamento inteligente de materiais e validações que garantem desempenho, estética e menor impacto ambiental.</p>
 
-            <figure class="video-card">
-              <div class="video-frame">
+          <div class="quality-steps">
+            <div class="step">
+              <div class="step__media">
                 <iframe
-                  width="560"
-                  height="315"
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1&rel=0&modestbranding=1&list=RDdQw4w9WgXcQ&start_radio=1"
-                  title="YouTube video player"
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1&rel=0&modestbranding=1"
+                  title="Formatos e cores"
                   frameborder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   referrerpolicy="strict-origin-when-cross-origin"
                   allowfullscreen
                 ></iframe>
               </div>
-              <figcaption>
-                <h3>Moagem</h3>
-                <p>Produtos com defeito não são descartados: seguem para a moagem, reciclando 100% da matéria‑prima virgem.</p>
-              </figcaption>
-            </figure>
+              <div class="step__content">
+                <h3>Formatos e Cores Sob Medida</h3>
+                <p>Modelamos frascos e potes para diferentes segmentos com precisão dimensional e paleta personalizada. A curadoria de cores garante consistência entre lotes, brilho controlado e aparência premium na gôndola, preservando a reciclabilidade do material.</p>
+              </div>
+            </div>
 
-            <figure class="video-card">
-              <div class="video-frame">
+            <div class="step">
+              <div class="step__media">
                 <iframe
-                  width="560"
-                  height="315"
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1&rel=0&modestbranding=1&list=RDdQw4w9WgXcQ&start_radio=1"
-                  title="YouTube video player"
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1&rel=0&modestbranding=1"
+                  title="Moagem e reaproveitamento"
                   frameborder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   referrerpolicy="strict-origin-when-cross-origin"
                   allowfullscreen
                 ></iframe>
               </div>
-              <figcaption>
-                <h3>Processo por sopro</h3>
-                <p>Moldagem por sopro para recipientes: aquecer o tubo de plástico e insuflar ar comprimido.</p>
-              </figcaption>
-            </figure>
+              <div class="step__content">
+                <h3>Moagem com Economia Circular</h3>
+                <p>Peças fora de especificação retornam ao ciclo produtivo por meio de moagem dedicada. Esse reaproveitamento controlado diminui resíduos, otimiza insumos e mantém a rastreabilidade da matéria‑prima virgem, sem comprometer a qualidade final.</p>
+              </div>
+            </div>
 
-            <figure class="video-card">
-              <div class="video-frame">
+            <div class="step">
+              <div class="step__media">
                 <iframe
-                  width="560"
-                  height="315"
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1&rel=0&modestbranding=1&list=RDdQw4w9WgXcQ&start_radio=1"
-                  title="YouTube video player"
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1&rel=0&modestbranding=1"
+                  title="Processo por sopro"
                   frameborder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   referrerpolicy="strict-origin-when-cross-origin"
                   allowfullscreen
                 ></iframe>
               </div>
-              <figcaption>
-                <h3>Testes de produtos</h3>
-                <p>Medições por item, ensaios de resistência e testes de queda para validar cada produto.</p>
-              </figcaption>
-            </figure>
+              <div class="step__content">
+                <h3>Processo por Sopro de Alta Precisão</h3>
+                <p>Com controle térmico e de pressão, expandimos o parison no molde para atingir espessuras uniformes, boca perfeita para roscas e excelente resistência mecânica. O resultado é um recipiente leve, robusto e pronto para linhas de envase automatizadas.</p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step__media">
+                <iframe
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1&rel=0&modestbranding=1"
+                  title="Testes de produtos"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen
+                ></iframe>
+              </div>
+              <div class="step__content">
+                <h3>Validação e Ensaios de Qualidade</h3>
+                <p>Em cada lote, realizamos medições por amostragem, testes de queda, estanqueidade e torque de fechamento. Métricas são registradas para rastreabilidade e melhoria contínua, garantindo performance estável em toda a cadeia logística.</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

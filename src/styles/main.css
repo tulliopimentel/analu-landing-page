@@ -248,12 +248,12 @@ html.menu-open, html.menu-open body { overflow: hidden; }
 .checklist li { position: relative; padding-left: 28px; }
 .checklist li::before { content: ""; position: absolute; left: 0; top: 7px; width: 16px; height: 16px; border-radius: 50%; background: conic-gradient(var(--green-brand), var(--green-dark)); mask: radial-gradient(circle at center, transparent 55%, black 56%); }
 
-/* Vídeos */
+/* Vídeos antigos (mantidos se usados em outra área) */
 .videos { align-items: start; }
 .video-card { margin: 0; display: flex; flex-direction: column; gap: 10px; }
 .video-card h3 { font-family: 'Lusitana', Georgia, serif; font-weight: 400; font-size: 1.1rem; margin: 0; color: inherit; }
-.video-card p { margin: 0; color: var(--muted); font-size: .95rem; }
-.video-card figcaption { margin-top: 4px; color: var(--muted); font-size: .95rem; }
+.video-card p { margin: 0; color: var(--muted); font-size: 1rem; }
+.video-card figcaption { margin-top: 4px; color: var(--muted); font-size: 1rem; }
 .video-frame { aspect-ratio: 16 / 9; background: #0b2315; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-soft); }
 .video-frame iframe { width: 100%; height: 100%; display: block; }
 /* Espaçamento extra para vídeos na seção Sobre */
@@ -325,4 +325,26 @@ p {
 
 li {
   font-size: 20px;
+}
+
+/* --- Processos & Qualidade (novo layout sem cards) --- */
+.quality .section__title { margin-bottom: 6px; }
+.quality__intro { font-size: 1.18rem; color: var(--muted); margin: 8px 0 26px; }
+.quality-steps { display: grid; gap: 38px; }
+.step {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: center;
+}
+/* Mantém proporções iguais entre mídia e conteúdo para alinhar os vídeos */
+.step:nth-child(even) { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.step__media { aspect-ratio: 16 / 9; background: #0b2315; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-soft); }
+.step__media iframe { width: 100%; height: 100%; border: 0; display: block; }
+.step__content h3 { margin: 0 0 8px; font-family: 'Lusitana', Georgia, serif; font-weight: 400; font-size: clamp(1.2rem, 1rem + .6vw, 1.45rem); position: relative; display: inline-block; padding-bottom: 6px; }
+.step__content h3::after { content: ""; position: absolute; left: 0; bottom: 0; width: 70%; height: 3px; background: color-mix(in oklab, var(--green-brand) 90%, white); border-radius: 2px; opacity: .9; }
+.step__content p { margin: 0; color: var(--muted); font-size: 1.08rem; line-height: 1.75; }
+@media (max-width: 900px) {
+  .step { grid-template-columns: 1fr; }
+  .step:nth-child(even) { grid-template-columns: 1fr; }
 }
