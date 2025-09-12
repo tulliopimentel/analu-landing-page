@@ -18,6 +18,7 @@
             <li><a href="#produtos">Produtos Eco</a></li>
             <li><a href="#compromisso">Compromisso</a></li>
             <li><a href="#pontos">Pontos</a></li>
+            <li><a href="#catalogo">Catálogo</a></li>
             <li><a href="#videos">Vídeos</a></li>
             <li><a href="#contato">Contato</a></li>
             <li class="nav__brand">
@@ -183,6 +184,39 @@
         </div>
       </section>
 
+      <!-- Catálogo -->
+      <section id="catalogo" class="section section--light">
+        <div class="container reveal-on-scroll">
+          <h2 class="section__title">Catálogo</h2>
+          <div class="grid catalog-grid" aria-label="Páginas do catálogo">
+            <button class="catalog-card" type="button" data-catalog-index="0" aria-label="Abrir página 1 do catálogo">
+              <img src="../assets/foto1.jpg" alt="Página 1 do catálogo" loading="lazy" />
+            </button>
+            <button class="catalog-card" type="button" data-catalog-index="1" aria-label="Abrir página 2 do catálogo">
+              <img src="../assets/foto1.jpg" alt="Página 2 do catálogo" loading="lazy" />
+            </button>
+            <button class="catalog-card" type="button" data-catalog-index="2" aria-label="Abrir página 3 do catálogo">
+              <img src="../assets/foto1.jpg" alt="Página 3 do catálogo" loading="lazy" />
+            </button>
+            <button class="catalog-card" type="button" data-catalog-index="3" aria-label="Abrir página 4 do catálogo">
+              <img src="../assets/foto1.jpg" alt="Página 4 do catálogo" loading="lazy" />
+            </button>
+            <button class="catalog-card" type="button" data-catalog-index="4" aria-label="Abrir página 5 do catálogo">
+              <img src="../assets/foto1.jpg" alt="Página 5 do catálogo" loading="lazy" />
+            </button>
+            <button class="catalog-card" type="button" data-catalog-index="5" aria-label="Abrir página 6 do catálogo">
+              <img src="../assets/foto1.jpg" alt="Página 6 do catálogo" loading="lazy" />
+            </button>
+            <button class="catalog-card" type="button" data-catalog-index="6" aria-label="Abrir página 7 do catálogo">
+              <img src="../assets/foto1.jpg" alt="Página 7 do catálogo" loading="lazy" />
+            </button>
+            <button class="catalog-card" type="button" data-catalog-index="7" aria-label="Abrir página 8 do catálogo">
+              <img src="../assets/foto1.jpg" alt="Página 8 do catálogo" loading="lazy" />
+            </button>
+          </div>
+        </div>
+      </section>
+
       <!-- Vídeos -->
       <section id="videos" class="section section--light">
         <div class="container reveal-on-scroll">
@@ -222,6 +256,16 @@
         </div>
       </section>
     </main>
+
+    <!-- Lightbox do Catálogo -->
+    <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Visualização do catálogo">
+      <div class="lightbox__img-wrap">
+        <img class="lightbox__img" id="lightboxImg" alt="Página ampliada do catálogo" />
+        <button class="lightbox__btn lightbox__close" id="lightboxClose" aria-label="Fechar">✕</button>
+        <button class="lightbox__btn lightbox__prev" id="lightboxPrev" aria-label="Anterior">‹</button>
+        <button class="lightbox__btn lightbox__next" id="lightboxNext" aria-label="Próxima">›</button>
+      </div>
+    </div>
 
     <section id="contato" class="section contact">
       <div class="container reveal-on-scroll">
