@@ -217,12 +217,36 @@ export function initHomeInteractions() {
     })
   }
 
-  // Gestos na imagem do lightbox (troca ao deslizar)
+  // Gestos na imagem do lightbox: swipe, pinch‑to‑zoom e pan
   if (lightboxImg) {
     let lbPointerDown = false
     let lbStartX = 0
     let lbMoved = false
 
+    // Estado de zoom/pan
+    let scale = 1
+    let baseScale = 1
+    let panX = 0
+    let panY = 0
+    let startPanX = 0
+    let startPanY = 0
+    let startClientX = 0
+    let startClientY = 0
+    const pointers = new Map()
+
+    const clamp = (val, min, max) => Math.min(Math.max(val, min), max)
+    const applyTransform = () => {
+      lightboxImg.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`
+    }
+    const maxPan = () => {
+      const w = lightboxImg.clientWidth
+      const h = lightboxImg.clientHeight
+      const maxX = (w * (scale - 1)) / 2
+      const maxY = (h * (scale - 1)) / 2
+      return { maxX, maxY }
+    }
+
+    // Swipe (apenas quando não está com zoom)
     const lbDown = (x) => { lbPointerDown = true; lbMoved = false; lbStartX = x }
     const lbMove = (x, e) => {
       if (!lbPointerDown) return
@@ -239,14 +263,95 @@ export function initHomeInteractions() {
       }
     }
 
-    lightboxImg.addEventListener('pointerdown', (e) => { e.preventDefault(); lbDown(e.clientX) })
-    lightboxImg.addEventListener('pointermove', (e) => lbMove(e.clientX, e))
-    lightboxImg.addEventListener('pointerup', (e) => lbUp(e.clientX))
-    lightboxImg.addEventListener('pointercancel', () => { lbPointerDown = false })
-    // Fallback touch
-    lightboxImg.addEventListener('touchstart', (e) => lbDown(e.touches[0].clientX), { passive: false })
-    lightboxImg.addEventListener('touchmove', (e) => lbMove(e.touches[0].clientX, e), { passive: false })
-    lightboxImg.addEventListener('touchend', (e) => { const t = e.changedTouches && e.changedTouches[0]; lbUp(t ? t.clientX : lbStartX) })
+    const updatePointer = (e) => {
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY })
+    }
+    const removePointer = (e) => { pointers.delete(e.pointerId) }
+
+    let pinchStartDist = 0
+    let pinchBaseScale = 1
+
+    const distance = (a, b) => Math.hypot(a.x - b.x, a.y - b.y)
+    const center = (a, b) => ({ x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 })
+
+    lightboxImg.addEventListener('pointerdown', (e) => {
+      e.preventDefault()
+      updatePointer(e)
+      // Quando com zoom, inicia pan com dedo único
+      if (pointers.size === 1 && scale > 1) {
+        startPanX = panX
+        startPanY = panY
+        startClientX = e.clientX
+        startClientY = e.clientY
+        return
+      }
+      // Duplo toque (desktop: dblclick; mobile: threshold rápido)
+      lbDown(e.clientX)
+      try { if (e.pointerId != null) e.target.setPointerCapture(e.pointerId) } catch {}
+      if (pointers.size === 2) {
+        const it = Array.from(pointers.values())
+        pinchStartDist = distance(it[0], it[1])
+        pinchBaseScale = scale
+      }
+    })
+
+    lightboxImg.addEventListener('pointermove', (e) => {
+      updatePointer(e)
+      if (pointers.size === 2) {
+        const it = Array.from(pointers.values())
+        const dist = distance(it[0], it[1])
+        const next = clamp(pinchBaseScale * (dist / Math.max(1, pinchStartDist)), 1, 4)
+        scale = next
+        // Limita pan quando faz pinch: mantém dentro dos limites atuais
+        const { maxX, maxY } = maxPan()
+        panX = clamp(panX, -maxX, maxX)
+        panY = clamp(panY, -maxY, maxY)
+        applyTransform()
+        e.preventDefault()
+        return
+      }
+      if (pointers.size === 1 && scale > 1) {
+        const dx = e.clientX - startClientX
+        const dy = e.clientY - startClientY
+        const { maxX, maxY } = maxPan()
+        panX = clamp(startPanX + dx, -maxX, maxX)
+        panY = clamp(startPanY + dy, -maxY, maxY)
+        applyTransform()
+        e.preventDefault()
+        return
+      }
+      // Swipe somente quando não está com zoom
+      if (scale === 1) lbMove(e.clientX, e)
+    })
+
+    lightboxImg.addEventListener('pointerup', (e) => {
+      removePointer(e)
+      try { if (e.pointerId != null) e.target.releasePointerCapture(e.pointerId) } catch {}
+      if (pointers.size === 0) {
+        baseScale = scale
+        if (scale === 1) { panX = 0; panY = 0; applyTransform() }
+      }
+      if (scale === 1) lbUp(e.clientX)
+    })
+    lightboxImg.addEventListener('pointercancel', (e) => { removePointer(e); lbPointerDown = false })
+
+    // Fallback Touch (iOS antigos) – apenas para swipe quando sem zoom
+    lightboxImg.addEventListener('touchstart', (e) => { if (scale === 1) lbDown(e.touches[0].clientX) }, { passive: false })
+    lightboxImg.addEventListener('touchmove', (e) => { if (scale === 1) lbMove(e.touches[0].clientX, e) }, { passive: false })
+    lightboxImg.addEventListener('touchend', (e) => { if (scale === 1) { const t = e.changedTouches && e.changedTouches[0]; lbUp(t ? t.clientX : lbStartX) } })
+
+    // Duplo toque / double-tap para zoom in/out
+    let lastTap = 0
+    const toggleZoomAtCenter = () => {
+      if (scale === 1) { scale = 2; panX = 0; panY = 0 } else { scale = 1; panX = 0; panY = 0 }
+      applyTransform()
+    }
+    lightboxImg.addEventListener('click', () => {
+      const now = Date.now()
+      if (now - lastTap < 300) { toggleZoomAtCenter() }
+      lastTap = now
+    })
+    lightboxImg.addEventListener('dblclick', (e) => { e.preventDefault(); toggleZoomAtCenter() })
   }
 }
 
