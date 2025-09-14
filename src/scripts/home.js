@@ -156,7 +156,7 @@ export function initHomeInteractions() {
       catalogTrack.scrollTo({ left: currentPage * getPageSize() })
     })
 
-    // Drag-scroll unificado (mouse e touch via Pointer Events; com fallback para touch)
+    // Drag-scroll: melhora no mobile deixando o scroll nativo; drag apenas no mouse
     let pointerDown = false
     let startX = 0
     let startScrollLeft = 0
@@ -186,24 +186,24 @@ export function initHomeInteractions() {
       }
     }
 
-    // Pointer events (cobre mouse e a maioria dos navegadores mobile)
+    // Pointer events: aplica drag somente para dispositivos com mouse
+    const isMousePointer = (e) => e.pointerType === 'mouse'
     catalogTrack.addEventListener('pointerdown', (e) => {
-      // Captura o ponteiro no ALVO real (button/img) para seguir recebendo eventos durante o arraste
+      if (!isMousePointer(e)) return
       try { if (e.pointerId != null && e.target && typeof e.target.setPointerCapture === 'function') e.target.setPointerCapture(e.pointerId) } catch {}
       e.preventDefault()
       onPointerDown(e.clientX)
     })
-    catalogTrack.addEventListener('pointermove', (e) => onPointerMove(e.clientX, e))
+    catalogTrack.addEventListener('pointermove', (e) => { if (isMousePointer(e)) onPointerMove(e.clientX, e) })
     catalogTrack.addEventListener('pointerup', (e) => {
+      if (!isMousePointer(e)) return
       try { if (e.pointerId != null && e.target && typeof e.target.releasePointerCapture === 'function') e.target.releasePointerCapture(e.pointerId) } catch {}
       onPointerUp()
     })
-    catalogTrack.addEventListener('pointercancel', onPointerUp)
+    catalogTrack.addEventListener('pointercancel', (e) => { if (isMousePointer(e)) onPointerUp() })
 
-    // Fallback para touch (iOS antigos)
-    catalogTrack.addEventListener('touchstart', (e) => onPointerDown(e.touches[0].clientX), { passive: false })
-    catalogTrack.addEventListener('touchmove', (e) => onPointerMove(e.touches[0].clientX, e), { passive: false })
-    catalogTrack.addEventListener('touchend', onPointerUp)
+    // Em touch, usamos o scroll nativo para ficar mais suave
+    // Apenas prevenimos drag da imagem e clique acidental
 
     // Evita comportamento nativo de arrastar imagens e abrir lightbox ao arrastar
     catalogTrack.querySelectorAll('img').forEach((img) => {

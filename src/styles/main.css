@@ -135,6 +135,8 @@
 
 * { box-sizing: border-box; }
 html:focus-within { scroll-behavior: smooth; }
+/* Previne scroll horizontal no mobile */
+html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
 body { margin: 0; font-family: Georgia, "Times New Roman", Times, serif; color: var(--text); background: var(--surface); line-height: 1.65; -webkit-font-smoothing: antialiased; }
 
 .container { width: min(1120px, 92%); margin: 0 auto; }
@@ -162,7 +164,7 @@ body { margin: 0; font-family: Georgia, "Times New Roman", Times, serif; color: 
 @media (max-width: 1100px) { .grid--4col { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .grid--4col { grid-template-columns: 1fr; } }
 /* Catálogo como carrossel (desktop e mobile) */
-.catalog-grid { display: grid; grid-auto-flow: column; grid-auto-columns: 28%; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom: 8px; cursor: grab; touch-action: pan-y; }
+.catalog-grid { display: grid; grid-auto-flow: column; grid-auto-columns: 28%; gap: 18px; overflow-x: auto; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; padding-bottom: 8px; cursor: grab; touch-action: pan-x; }
 .catalog-grid.is-dragging { cursor: grabbing; scroll-snap-type: none; }
 .catalog-grid > .catalog-card { scroll-snap-align: start; }
 .catalog-grid::-webkit-scrollbar { display: none; }
