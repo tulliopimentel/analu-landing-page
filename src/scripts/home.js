@@ -70,6 +70,8 @@ export function initHomeInteractions() {
     currentIndex = index
     lightboxImg.src = images[currentIndex].src
     lightboxImg.alt = images[currentIndex].alt
+    // Garante que ao abrir a imagem caiba inteira na tela
+    try { lightboxImg.style.transform = 'translate(0px, 0px) scale(1)'; } catch {}
     lightbox.setAttribute('aria-hidden', 'false')
     document.documentElement.classList.add('menu-open')
   }
@@ -84,7 +86,6 @@ export function initHomeInteractions() {
   const showPrev = () => openLightbox((currentIndex - 1 + images.length) % images.length)
 
   catalogButtons.forEach((btn, idx) => {
-    btn.addEventListener('click', () => openLightbox(idx))
     btn.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault()
@@ -182,7 +183,7 @@ export function initHomeInteractions() {
       catalogTrack.classList.remove('is-dragging')
       if (dragged) {
         suppressClick = true
-        setTimeout(() => { suppressClick = false }, 60)
+        setTimeout(() => { suppressClick = false }, 150)
       }
     }
 
@@ -300,7 +301,7 @@ export function initHomeInteractions() {
       if (pointers.size === 2) {
         const it = Array.from(pointers.values())
         const dist = distance(it[0], it[1])
-        const next = clamp(pinchBaseScale * (dist / Math.max(1, pinchStartDist)), 1, 4)
+        const next = clamp(pinchBaseScale * (dist / Math.max(1, pinchStartDist)), 1, 2.5)
         scale = next
         // Limita pan quando faz pinch: mantém dentro dos limites atuais
         const { maxX, maxY } = maxPan()
@@ -328,8 +329,9 @@ export function initHomeInteractions() {
       removePointer(e)
       try { if (e.pointerId != null) e.target.releasePointerCapture(e.pointerId) } catch {}
       if (pointers.size === 0) {
+        // Se o zoom está próximo de caber na tela, ajusta para caber 100% e centraliza
+        if (scale <= 1.02) { scale = 1; panX = 0; panY = 0; applyTransform() }
         baseScale = scale
-        if (scale === 1) { panX = 0; panY = 0; applyTransform() }
       }
       if (scale === 1) lbUp(e.clientX)
     })

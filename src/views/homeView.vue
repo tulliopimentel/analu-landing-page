@@ -72,7 +72,7 @@
                 <iframe
                   width="560"
                   height="315"
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1&rel=0&modestbranding=1&list=RDdQw4w9WgXcQ&start_radio=1"
+                  src="https://www.youtube.com/embed/GVJC8_s5gJY"
                   title="YouTube video player"
                   frameborder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -87,7 +87,7 @@
                 <iframe
                   width="560"
                   height="315"
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1&rel=0&modestbranding=1&list=RDdQw4w9WgXcQ&start_radio=1"
+                  src="https://www.youtube.com/embed/bMC2S6xGCRY"
                   title="YouTube video player"
                   frameborder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -143,7 +143,7 @@
             <div class="step">
               <div class="step__media">
                 <iframe
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1&rel=0&modestbranding=1"
+                  src="https://www.youtube.com/embed/O7BcUtBBDFE"
                   title="Formatos e cores"
                   frameborder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -160,7 +160,7 @@
             <div class="step">
               <div class="step__media">
                 <iframe
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1&rel=0&modestbranding=1"
+                  src="https://www.youtube.com/embed/36t6Bs9pP4s"
                   title="Moagem e reaproveitamento"
                   frameborder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -177,7 +177,7 @@
             <div class="step">
               <div class="step__media">
                 <iframe
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1&rel=0&modestbranding=1"
+                  src="https://www.youtube.com/embed/wRzmAaS4GnY"
                   title="Processo por sopro"
                   frameborder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -194,7 +194,7 @@
             <div class="step">
               <div class="step__media">
                 <iframe
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1&rel=0&modestbranding=1"
+                  src="https://www.youtube.com/embed/vT9fhcv8p78"
                   title="Testes de produtos"
                   frameborder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
