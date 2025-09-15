@@ -100,7 +100,13 @@ export function initHomeInteractions() {
 
   if (lightbox) {
     lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) closeLightbox()
+      // Fecha ao clicar no backdrop (fora do wrap) ou em áreas vazias do wrap
+      const isBackdrop = e.target === lightbox
+      const wrap = lightbox.querySelector('.lightbox__img-wrap')
+      const img = lightbox.querySelector('.lightbox__img')
+      const clickedInsideWrap = wrap && wrap.contains(e.target)
+      const clickedOnImage = img && img.contains(e.target)
+      if (isBackdrop || (clickedInsideWrap && !clickedOnImage)) closeLightbox()
     })
   }
 
