@@ -160,13 +160,31 @@ export function initHomeInteractions() {
         track.scrollTo({ left: currentPage * getPageSize() })
       })
 
-      // Drag-scroll behavior (mouse only)
+      // Drag-scroll behavior (mouse only) – não intercepta toques para não travar scroll vertical em mobile
       let pointerDown = false, startX = 0, startScrollLeft = 0, dragged = false, suppressClick = false
       const onPointerDown = (clientX) => { pointerDown = true; dragged = false; track.classList.add('is-dragging'); startX = clientX; startScrollLeft = track.scrollLeft }
-      const onPointerMove = (clientX, evt) => { if (!pointerDown) return; const delta = clientX - startX; if (Math.abs(delta) > 3) dragged = true; track.scrollLeft = startScrollLeft - delta; if (evt) evt.preventDefault() }
-      const onPointerUp = () => { pointerDown = false; track.classList.remove('is-dragging'); if (dragged) { suppressClick = true; setTimeout(() => { suppressClick = false }, 150) } }
+      const onPointerMove = (clientX, evt) => {
+        if (!pointerDown) return
+        const delta = clientX - startX
+        if (Math.abs(delta) > 3) dragged = true
+        track.scrollLeft = startScrollLeft - delta
+        if (evt) evt.preventDefault()
+      }
+      const onPointerUp = () => {
+        pointerDown = false
+        track.classList.remove('is-dragging')
+        if (dragged) {
+          suppressClick = true
+          setTimeout(() => { suppressClick = false }, 150)
+        }
+      }
       const isMousePointer = (e) => e.pointerType === 'mouse'
-      track.addEventListener('pointerdown', (e) => { if (!isMousePointer(e)) return; try { if (e.pointerId != null && e.target && typeof e.target.setPointerCapture === 'function') e.target.setPointerCapture(e.pointerId) } catch {}; e.preventDefault(); onPointerDown(e.clientX) })
+      track.addEventListener('pointerdown', (e) => {
+        if (!isMousePointer(e)) return // ignorar touch
+        try { if (e.pointerId != null && e.target && typeof e.target.setPointerCapture === 'function') e.target.setPointerCapture(e.pointerId) } catch {}
+        e.preventDefault()
+        onPointerDown(e.clientX)
+      })
       track.addEventListener('pointermove', (e) => { if (isMousePointer(e)) onPointerMove(e.clientX, e) })
       track.addEventListener('pointerup', (e) => { if (!isMousePointer(e)) return; try { if (e.pointerId != null && e.target && typeof e.target.releasePointerCapture === 'function') e.target.releasePointerCapture(e.pointerId) } catch {}; onPointerUp() })
       track.addEventListener('pointercancel', (e) => { if (isMousePointer(e)) onPointerUp() })
