@@ -205,6 +205,8 @@ export function initHomeInteractions() {
       const maxY = (h * (scale - 1)) / 2
       return { maxX, maxY }
     }
+    // Controla estado de pan ativo (mouse pressionado enquanto com zoom)
+    let isPanning = false
 
     // Swipe (apenas quando não está com zoom)
     const lbDown = (x) => { lbPointerDown = true; lbMoved = false; lbStartX = x }
@@ -236,6 +238,8 @@ export function initHomeInteractions() {
 
     lightboxImg.addEventListener('pointerdown', (e) => {
       e.preventDefault()
+      // Track last pointer type to distinguish desktop (mouse) from touch for zoom behavior
+      lastPointerType = e.pointerType || 'mouse'
       updatePointer(e)
       // Quando com zoom, inicia pan com dedo único
       if (pointers.size === 1 && scale > 1) {
@@ -243,6 +247,7 @@ export function initHomeInteractions() {
         startPanY = panY
         startClientX = e.clientX
         startClientY = e.clientY
+        isPanning = true
         return
       }
       // Duplo toque (desktop: dblclick; mobile: threshold rápido)
@@ -271,7 +276,7 @@ export function initHomeInteractions() {
         scheduleTransform()
         e.preventDefault(); return
       }
-      if (pointers.size === 1 && scale > 1) {
+      if (pointers.size === 1 && scale > 1 && isPanning) {
         const dx = e.clientX - startClientX
         const dy = e.clientY - startClientY
         const { maxX, maxY } = maxPan()
@@ -286,6 +291,7 @@ export function initHomeInteractions() {
     lightboxImg.addEventListener('pointerup', (e) => {
       removePointer(e)
       try { if (e.pointerId != null) e.target.releasePointerCapture(e.pointerId) } catch {}
+      isPanning = false
       if (pointers.size === 0) {
         // Se o zoom está próximo de caber na tela, ajusta para caber 100% e centraliza
         if (scale <= 1.02) { resetTransform() } else { applyTransform() }
@@ -304,9 +310,26 @@ export function initHomeInteractions() {
     // Duplo toque / double-tap para zoom in/out
     // Double click / double tap to zoom (2 clicks)
     let lastClick = 0
-    const toggleZoom = () => { if (scale === 1) { scale = 2; panX = 0; panY = 0 } else { resetTransform() }; applyTransform() }
-    lightboxImg.addEventListener('click', () => { const now = Date.now(); if (now - lastClick < 320) { toggleZoom() }; lastClick = now })
-    lightboxImg.addEventListener('dblclick', (e) => { e.preventDefault(); toggleZoom() })
+    let lastPointerType = 'mouse'
+    const toggleZoom = () => {
+      if (scale === 1) {
+        scale = 2; panX = 0; panY = 0
+      } else {
+        resetTransform()
+      }
+      applyTransform()
+    }
+    // On desktop (mouse): single click toggles zoom.
+    // On touch: retain double-tap (within 320ms) to avoid accidental zoom on simple tap to navigate/swipe.
+    lightboxImg.addEventListener('click', (e) => {
+      if (lastPointerType === 'mouse') {
+        toggleZoom()
+        return
+      }
+      const now = Date.now()
+      if (now - lastClick < 320) toggleZoom()
+      lastClick = now
+    })
   }
 
   // Close controls (backdrop, buttons & keys)
