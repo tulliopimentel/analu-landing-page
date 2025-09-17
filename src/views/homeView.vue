@@ -253,7 +253,7 @@
         <ul class="contact__list" role="list">
           <li>
             <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z"/></svg>
-            <a href="mailto:vendas@supersopro.com.br">vendas@supersopro.com.br</a>
+            <a href="mailto:contato@supersopro.com.br">contato@supersopro.com.br</a>
           </li>
           <li>
             <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm5 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm6.5-.1a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8Z"/></svg>
