@@ -248,6 +248,7 @@ export function initHomeInteractions() {
         startClientX = e.clientX
         startClientY = e.clientY
         isPanning = true
+        panMovedSinceDown = false
         return
       }
       // Duplo toque (desktop: dblclick; mobile: threshold rápido)
@@ -279,6 +280,7 @@ export function initHomeInteractions() {
       if (pointers.size === 1 && scale > 1 && isPanning) {
         const dx = e.clientX - startClientX
         const dy = e.clientY - startClientY
+        if (Math.abs(dx) > 2 || Math.abs(dy) > 2) panMovedSinceDown = true
         const { maxX, maxY } = maxPan()
         panX = clamp(startPanX + dx, -maxX, maxX)
         panY = clamp(startPanY + dy, -maxY, maxY)
@@ -319,12 +321,15 @@ export function initHomeInteractions() {
       }
       applyTransform()
     }
+    // Flag para saber se houve movimento de pan antes do clique final
+    let panMovedSinceDown = false
     // On desktop (mouse): single click toggles zoom.
     // On touch: retain double-tap (within 320ms) to avoid accidental zoom on simple tap to navigate/swipe.
     lightboxImg.addEventListener('click', (e) => {
+      // Se houve pan (arraste) desde o pointerdown, não considerar como click de toggle
+      if (panMovedSinceDown) { panMovedSinceDown = false; return }
       if (lastPointerType === 'mouse') {
-        toggleZoom()
-        return
+        toggleZoom(); return
       }
       const now = Date.now()
       if (now - lastClick < 320) toggleZoom()
