@@ -50,179 +50,138 @@ export function initHomeInteractions() {
   if (y) y.textContent = new Date().getFullYear().toString()
 
   // Lightbox Catálogo
-  const catalogButtons = Array.from(document.querySelectorAll('.catalog-card'))
+  const catalogButtons = Array.from(document.querySelectorAll('#catalogTrack .catalog-card'))
   const catalogTrack = document.getElementById('catalogTrack')
   const catalogDots = document.getElementById('catalogDots')
+  // Sustentabilidade carousel elements
+  const sustTrack = document.getElementById('sustentabilidadeTrack')
+  const sustDots = document.getElementById('sustentabilidadeDots')
+  const sustButtons = Array.from(document.querySelectorAll('#sustentabilidadeTrack .sustentabilidade-card'))
   const lightbox = document.getElementById('lightbox')
   const lightboxImg = document.getElementById('lightboxImg')
   const btnClose = document.getElementById('lightboxClose')
   const btnPrev = document.getElementById('lightboxPrev')
   const btnNext = document.getElementById('lightboxNext')
   let currentIndex = 0
+  // Zoom state (hoisted so openLightbox can reset without ReferenceError)
+  let scale = 1
+  let baseScale = 1
+  let panX = 0
+  let panY = 0
+  const applyTransform = () => { if (lightboxImg) lightboxImg.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})` }
+  const resetTransform = () => { scale = 1; baseScale = 1; panX = 0; panY = 0; applyTransform() }
 
-  const images = catalogButtons.map((btn) => {
+  // Build image groups (catalog & sustentabilidade)
+  const catalogImages = catalogButtons.map((btn) => {
     const img = btn.querySelector('img')
     return { src: img?.getAttribute('src') || '', alt: img?.getAttribute('alt') || '' }
   })
+  const sustImages = sustButtons.map((btn) => {
+    const img = btn.querySelector('img')
+    return { src: img?.getAttribute('src') || '', alt: img?.getAttribute('alt') || '' }
+  })
+  let activeImages = catalogImages
+  let activeGroup = 'catalog'
 
-  const openLightbox = (index) => {
-    if (!lightbox || !lightboxImg || !images[index]) return
-    currentIndex = index
-    lightboxImg.src = images[currentIndex].src
-    lightboxImg.alt = images[currentIndex].alt
-    // Garante que ao abrir a imagem caiba inteira na tela
-    try { lightboxImg.style.transform = 'translate(0px, 0px) scale(1)'; } catch {}
+  const applyImage = () => {
+    if (!lightboxImg || !activeImages[currentIndex]) return
+    lightboxImg.src = activeImages[currentIndex].src
+    lightboxImg.alt = activeImages[currentIndex].alt
+  }
+
+  const openLightbox = (index, group = 'catalog') => {
+    if (!lightbox || !lightboxImg) return
+    activeGroup = group
+    activeImages = group === 'sustentabilidade' ? sustImages : catalogImages
+    currentIndex = Math.min(Math.max(index, 0), activeImages.length - 1)
+    // Reset zoom state
+    resetTransform()
+    applyImage()
     lightbox.setAttribute('aria-hidden', 'false')
     document.documentElement.classList.add('menu-open')
   }
-
   const closeLightbox = () => {
     if (!lightbox) return
     lightbox.setAttribute('aria-hidden', 'true')
     document.documentElement.classList.remove('menu-open')
   }
-
-  const showNext = () => openLightbox((currentIndex + 1) % images.length)
-  const showPrev = () => openLightbox((currentIndex - 1 + images.length) % images.length)
-
-  catalogButtons.forEach((btn, idx) => {
-    btn.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault()
-        openLightbox(idx)
-      }
-    })
-  })
-
-  if (btnClose) btnClose.addEventListener('click', closeLightbox)
-  if (btnNext) btnNext.addEventListener('click', showNext)
-  if (btnPrev) btnPrev.addEventListener('click', showPrev)
-
-  if (lightbox) {
-    lightbox.addEventListener('click', (e) => {
-      // Fecha ao clicar no backdrop (fora do wrap) ou em áreas vazias do wrap
-      const isBackdrop = e.target === lightbox
-      const wrap = lightbox.querySelector('.lightbox__img-wrap')
-      const img = lightbox.querySelector('.lightbox__img')
-      const clickedInsideWrap = wrap && wrap.contains(e.target)
-      const clickedOnImage = img && img.contains(e.target)
-      if (isBackdrop || (clickedInsideWrap && !clickedOnImage)) closeLightbox()
-    })
+  const showNext = () => {
+    if (!activeImages.length) return
+    currentIndex = (currentIndex + 1) % activeImages.length
+    applyImage(); resetTransform()
+  }
+  const showPrev = () => {
+    if (!activeImages.length) return
+    currentIndex = (currentIndex - 1 + activeImages.length) % activeImages.length
+    applyImage(); resetTransform()
   }
 
-  window.addEventListener('keydown', (e) => {
-    const isOpen = lightbox && lightbox.getAttribute('aria-hidden') === 'false'
-    if (!isOpen) return
-    if (e.key === 'Escape') closeLightbox()
-    if (e.key === 'ArrowRight') showNext()
-    if (e.key === 'ArrowLeft') showPrev()
-  })
+  // Generic function to init a horizontal carousel with dots & drag
+    function initCarousel(track, dots, buttons, clickHandlerNamespace) {
+      if (!track || !dots) return
+      const getPageSize = () => track.clientWidth
+      const getTotalWidth = () => track.scrollWidth
+      const computePageCount = () => Math.max(1, Math.ceil(getTotalWidth() / getPageSize()))
 
-  // Dots do carrossel (mobile)
-  if (catalogTrack && catalogDots) {
-    const getPageSize = () => catalogTrack.clientWidth
-    const getTotalWidth = () => catalogTrack.scrollWidth
-    const computePageCount = () => Math.max(1, Math.ceil(getTotalWidth() / getPageSize()))
-
-    const renderDots = () => {
-      const pages = computePageCount()
-      catalogDots.innerHTML = ''
-      for (let i = 0; i < pages; i += 1) {
-        const dot = document.createElement('span')
-        dot.className = 'carousel-dot'
-        dot.setAttribute('aria-current', i === 0 ? 'true' : 'false')
-        dot.addEventListener('click', () => {
-          catalogTrack.scrollTo({ left: i * getPageSize(), behavior: 'smooth' })
+      const renderDots = () => {
+        const pages = computePageCount()
+        dots.innerHTML = ''
+        for (let i = 0; i < pages; i += 1) {
+          const dot = document.createElement('span')
+          dot.className = 'carousel-dot'
+          dot.setAttribute('aria-current', i === 0 ? 'true' : 'false')
+          dot.addEventListener('click', () => {
+            track.scrollTo({ left: i * getPageSize(), behavior: 'smooth' })
+          })
+          dots.appendChild(dot)
+        }
+      }
+      const updateActiveDot = () => {
+        const pages = computePageCount()
+        const dotEls = dots.querySelectorAll('.carousel-dot')
+        if (!dotEls.length) return
+        const rawIndex = Math.round(track.scrollLeft / getPageSize())
+        const idx = Math.min(Math.max(rawIndex, 0), pages - 1)
+        dotEls.forEach((d, i) => d.setAttribute('aria-current', i === idx ? 'true' : 'false'))
+      }
+      renderDots(); updateActiveDot()
+      let ticking = false
+      track.addEventListener('scroll', () => {
+        if (ticking) return
+        ticking = true
+        requestAnimationFrame(() => {
+          updateActiveDot();
+          ticking = false
         })
-        catalogDots.appendChild(dot)
-      }
-    }
-    const updateActiveDot = () => {
-      const pages = computePageCount()
-      const dots = catalogDots.querySelectorAll('.carousel-dot')
-      if (!dots.length) return
-      const rawIndex = Math.round(catalogTrack.scrollLeft / getPageSize())
-      const idx = Math.min(Math.max(rawIndex, 0), pages - 1)
-      dots.forEach((d, i) => d.setAttribute('aria-current', i === idx ? 'true' : 'false'))
-    }
-    renderDots()
-    updateActiveDot()
-    let ticking = false
-    catalogTrack.addEventListener('scroll', () => {
-      if (ticking) return
-      ticking = true
-      requestAnimationFrame(() => {
-        updateActiveDot()
-        ticking = false
       })
-    })
-    window.addEventListener('resize', () => {
-      const currentPage = Math.round(catalogTrack.scrollLeft / getPageSize())
-      renderDots()
-      updateActiveDot()
-      catalogTrack.scrollTo({ left: currentPage * getPageSize() })
-    })
-
-    // Drag-scroll: melhora no mobile deixando o scroll nativo; drag apenas no mouse
-    let pointerDown = false
-    let startX = 0
-    let startScrollLeft = 0
-    let dragged = false
-    let suppressClick = false
-
-    const onPointerDown = (clientX) => {
-      pointerDown = true
-      dragged = false
-      catalogTrack.classList.add('is-dragging')
-      startX = clientX
-      startScrollLeft = catalogTrack.scrollLeft
-    }
-    const onPointerMove = (clientX, evt) => {
-      if (!pointerDown) return
-      const delta = clientX - startX
-      if (Math.abs(delta) > 3) dragged = true
-      catalogTrack.scrollLeft = startScrollLeft - delta
-      if (evt) evt.preventDefault()
-    }
-    const onPointerUp = () => {
-      pointerDown = false
-      catalogTrack.classList.remove('is-dragging')
-      if (dragged) {
-        suppressClick = true
-        setTimeout(() => { suppressClick = false }, 150)
-      }
-    }
-
-    // Pointer events: aplica drag somente para dispositivos com mouse
-    const isMousePointer = (e) => e.pointerType === 'mouse'
-    catalogTrack.addEventListener('pointerdown', (e) => {
-      if (!isMousePointer(e)) return
-      try { if (e.pointerId != null && e.target && typeof e.target.setPointerCapture === 'function') e.target.setPointerCapture(e.pointerId) } catch {}
-      e.preventDefault()
-      onPointerDown(e.clientX)
-    })
-    catalogTrack.addEventListener('pointermove', (e) => { if (isMousePointer(e)) onPointerMove(e.clientX, e) })
-    catalogTrack.addEventListener('pointerup', (e) => {
-      if (!isMousePointer(e)) return
-      try { if (e.pointerId != null && e.target && typeof e.target.releasePointerCapture === 'function') e.target.releasePointerCapture(e.pointerId) } catch {}
-      onPointerUp()
-    })
-    catalogTrack.addEventListener('pointercancel', (e) => { if (isMousePointer(e)) onPointerUp() })
-
-    // Em touch, usamos o scroll nativo para ficar mais suave
-    // Apenas prevenimos drag da imagem e clique acidental
-
-    // Evita comportamento nativo de arrastar imagens e abrir lightbox ao arrastar
-    catalogTrack.querySelectorAll('img').forEach((img) => {
-      img.addEventListener('dragstart', (ev) => ev.preventDefault())
-    })
-    catalogButtons.forEach((btn, idx) => {
-      btn.addEventListener('click', (ev) => {
-        if (suppressClick) { ev.preventDefault(); return }
-        openLightbox(idx)
+      window.addEventListener('resize', () => {
+        const currentPage = Math.round(track.scrollLeft / getPageSize())
+        renderDots(); updateActiveDot();
+        track.scrollTo({ left: currentPage * getPageSize() })
       })
-    })
-  }
+
+      // Drag-scroll behavior (mouse only)
+      let pointerDown = false, startX = 0, startScrollLeft = 0, dragged = false, suppressClick = false
+      const onPointerDown = (clientX) => { pointerDown = true; dragged = false; track.classList.add('is-dragging'); startX = clientX; startScrollLeft = track.scrollLeft }
+      const onPointerMove = (clientX, evt) => { if (!pointerDown) return; const delta = clientX - startX; if (Math.abs(delta) > 3) dragged = true; track.scrollLeft = startScrollLeft - delta; if (evt) evt.preventDefault() }
+      const onPointerUp = () => { pointerDown = false; track.classList.remove('is-dragging'); if (dragged) { suppressClick = true; setTimeout(() => { suppressClick = false }, 150) } }
+      const isMousePointer = (e) => e.pointerType === 'mouse'
+      track.addEventListener('pointerdown', (e) => { if (!isMousePointer(e)) return; try { if (e.pointerId != null && e.target && typeof e.target.setPointerCapture === 'function') e.target.setPointerCapture(e.pointerId) } catch {}; e.preventDefault(); onPointerDown(e.clientX) })
+      track.addEventListener('pointermove', (e) => { if (isMousePointer(e)) onPointerMove(e.clientX, e) })
+      track.addEventListener('pointerup', (e) => { if (!isMousePointer(e)) return; try { if (e.pointerId != null && e.target && typeof e.target.releasePointerCapture === 'function') e.target.releasePointerCapture(e.pointerId) } catch {}; onPointerUp() })
+      track.addEventListener('pointercancel', (e) => { if (isMousePointer(e)) onPointerUp() })
+      // Prevent native image drag
+      track.querySelectorAll('img').forEach((img) => img.addEventListener('dragstart', (ev) => ev.preventDefault()))
+      buttons.forEach((btn, idx) => {
+        btn.addEventListener('click', (ev) => {
+          if (suppressClick) { ev.preventDefault(); return }
+          openLightbox(idx, clickHandlerNamespace)
+        })
+      })
+    }
+
+  initCarousel(catalogTrack, catalogDots, catalogButtons, 'catalog')
+  initCarousel(sustTrack, sustDots, sustButtons, 'sustentabilidade')
 
   // Gestos na imagem do lightbox: swipe, pinch‑to‑zoom e pan
   if (lightboxImg) {
@@ -230,11 +189,7 @@ export function initHomeInteractions() {
     let lbStartX = 0
     let lbMoved = false
 
-    // Estado de zoom/pan
-    let scale = 1
-    let baseScale = 1
-    let panX = 0
-    let panY = 0
+  // (Estado de zoom/pan já hoistado)
     let startPanX = 0
     let startPanY = 0
     let startClientX = 0
@@ -242,9 +197,7 @@ export function initHomeInteractions() {
     const pointers = new Map()
 
     const clamp = (val, min, max) => Math.min(Math.max(val, min), max)
-    const applyTransform = () => {
-      lightboxImg.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`
-    }
+  // (Funções applyTransform/resetTransform já definidas acima)
     const maxPan = () => {
       const w = lightboxImg.clientWidth
       const h = lightboxImg.clientHeight
@@ -302,6 +255,9 @@ export function initHomeInteractions() {
       }
     })
 
+    let rafPending = false
+    const scheduleTransform = () => { if (rafPending) return; rafPending = true; requestAnimationFrame(() => { applyTransform(); rafPending = false }) }
+
     lightboxImg.addEventListener('pointermove', (e) => {
       updatePointer(e)
       if (pointers.size === 2) {
@@ -309,13 +265,11 @@ export function initHomeInteractions() {
         const dist = distance(it[0], it[1])
         const next = clamp(pinchBaseScale * (dist / Math.max(1, pinchStartDist)), 1, 2.5)
         scale = next
-        // Limita pan quando faz pinch: mantém dentro dos limites atuais
         const { maxX, maxY } = maxPan()
         panX = clamp(panX, -maxX, maxX)
         panY = clamp(panY, -maxY, maxY)
-        applyTransform()
-        e.preventDefault()
-        return
+        scheduleTransform()
+        e.preventDefault(); return
       }
       if (pointers.size === 1 && scale > 1) {
         const dx = e.clientX - startClientX
@@ -323,11 +277,9 @@ export function initHomeInteractions() {
         const { maxX, maxY } = maxPan()
         panX = clamp(startPanX + dx, -maxX, maxX)
         panY = clamp(startPanY + dy, -maxY, maxY)
-        applyTransform()
-        e.preventDefault()
-        return
+        scheduleTransform()
+        e.preventDefault(); return
       }
-      // Swipe somente quando não está com zoom
       if (scale === 1) lbMove(e.clientX, e)
     })
 
@@ -336,8 +288,9 @@ export function initHomeInteractions() {
       try { if (e.pointerId != null) e.target.releasePointerCapture(e.pointerId) } catch {}
       if (pointers.size === 0) {
         // Se o zoom está próximo de caber na tela, ajusta para caber 100% e centraliza
-        if (scale <= 1.02) { scale = 1; panX = 0; panY = 0; applyTransform() }
+        if (scale <= 1.02) { resetTransform() } else { applyTransform() }
         baseScale = scale
+        scheduleTransform()
       }
       if (scale === 1) lbUp(e.clientX)
     })
@@ -349,18 +302,33 @@ export function initHomeInteractions() {
     lightboxImg.addEventListener('touchend', (e) => { if (scale === 1) { const t = e.changedTouches && e.changedTouches[0]; lbUp(t ? t.clientX : lbStartX) } })
 
     // Duplo toque / double-tap para zoom in/out
-    let lastTap = 0
-    const toggleZoomAtCenter = () => {
-      if (scale === 1) { scale = 2; panX = 0; panY = 0 } else { scale = 1; panX = 0; panY = 0 }
-      applyTransform()
-    }
-    lightboxImg.addEventListener('click', () => {
-      const now = Date.now()
-      if (now - lastTap < 300) { toggleZoomAtCenter() }
-      lastTap = now
-    })
-    lightboxImg.addEventListener('dblclick', (e) => { e.preventDefault(); toggleZoomAtCenter() })
+    // Double click / double tap to zoom (2 clicks)
+    let lastClick = 0
+    const toggleZoom = () => { if (scale === 1) { scale = 2; panX = 0; panY = 0 } else { resetTransform() }; applyTransform() }
+    lightboxImg.addEventListener('click', () => { const now = Date.now(); if (now - lastClick < 320) { toggleZoom() }; lastClick = now })
+    lightboxImg.addEventListener('dblclick', (e) => { e.preventDefault(); toggleZoom() })
   }
+
+  // Close controls (backdrop, buttons & keys)
+  if (btnClose) btnClose.addEventListener('click', closeLightbox)
+  if (btnNext) btnNext.addEventListener('click', showNext)
+  if (btnPrev) btnPrev.addEventListener('click', showPrev)
+  if (lightbox) {
+    lightbox.addEventListener('click', (e) => {
+      const img = lightboxImg
+      if (!img) return
+      if (e.target === lightbox) { closeLightbox(); return }
+      // Clicking inside wrapper but NOT on image (wrapper has pointer-events:none normally)
+      if (e.target !== img && !img.contains(e.target)) closeLightbox()
+    })
+  }
+  window.addEventListener('keydown', (e) => {
+    const isOpen = lightbox && lightbox.getAttribute('aria-hidden') === 'false'
+    if (!isOpen) return
+    if (e.key === 'Escape') closeLightbox()
+    if (e.key === 'ArrowRight') showNext()
+    if (e.key === 'ArrowLeft') showPrev()
+  })
 }
 
 

@@ -211,8 +211,8 @@
         </div>
       </section>
 
-      <!-- Catálogo -->
-      <section id="catalogo" class="section section--light">
+  <!-- Catálogo -->
+  <section id="catalogo" class="section section--light section--tight-bottom">
         <div class="container reveal-on-scroll">
           <h2 class="section__title">Catálogo</h2>
           <div id="catalogTrack" class="grid catalog-grid" aria-label="Páginas do catálogo">
@@ -234,24 +234,24 @@
       </section>
 
       <!-- Sustentabilidade -->
-      <section id="catalogo" class="section section--light">
+      <section id="sustentabilidade" class="section section--light section--tight-top">
         <div class="container reveal-on-scroll">
           <h2 class="section__title">Sustentabilidade</h2>
-          <div id="catalogTrack" class="grid catalog-grid" aria-label="Páginas da Sustentabilidade">
-            <button class="catalog-card" type="button" data-catalog-index="0" aria-label="Abrir página 1 da Sustentabilidade">
+          <div id="sustentabilidadeTrack" class="grid catalog-grid" aria-label="Páginas da Sustentabilidade">
+            <button class="catalog-card sustentabilidade-card" type="button" data-sustentabilidade-index="0" aria-label="Abrir página 1 da Sustentabilidade">
               <img src="../assets/sustentabilidade1.png" alt="Página 1 da Sustentabilidade" loading="lazy" />
             </button>
-            <button class="catalog-card" type="button" data-catalog-index="1" aria-label="Abrir página 2 da Sustentabilidade">
+            <button class="catalog-card sustentabilidade-card" type="button" data-sustentabilidade-index="1" aria-label="Abrir página 2 da Sustentabilidade">
               <img src="../assets/sustentabilidade2.png" alt="Página 2 da Sustentabilidade" loading="lazy" />
             </button>
-            <button class="catalog-card" type="button" data-catalog-index="2" aria-label="Abrir página 3 da Sustentabilidade">
+            <button class="catalog-card sustentabilidade-card" type="button" data-sustentabilidade-index="2" aria-label="Abrir página 3 da Sustentabilidade">
               <img src="../assets/sustentabilidade3.png" alt="Página 3 da Sustentabilidade" loading="lazy" />
             </button>
-            <button class="catalog-card" type="button" data-catalog-index="3" aria-label="Abrir página 4 da Sustentabilidade">
+            <button class="catalog-card sustentabilidade-card" type="button" data-sustentabilidade-index="3" aria-label="Abrir página 4 da Sustentabilidade">
               <img src="../assets/sustentabilidade4.png" alt="Página 4 da Sustentabilidade" loading="lazy" />
             </button>
           </div>
-          <div class="carousel-dots" id="catalogDots" aria-hidden="false"></div>
+          <div class="carousel-dots" id="sustentabilidadeDots" aria-hidden="false"></div>
         </div>
       </section>
     </main>

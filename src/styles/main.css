@@ -142,6 +142,8 @@ body { margin: 0; font-family: Georgia, "Times New Roman", Times, serif; color: 
 .container { width: min(1120px, 92%); margin: 0 auto; }
 .narrow { width: min(840px, 92%); }
 .section { position: relative; padding: 60px 0; scroll-margin-top: 84px; }
+.section.section--tight-bottom { padding-bottom: 20px; }
+.section.section--tight-top { padding-top: 30px; }
 .section--light { background: var(--surface); }
 .section--brand {
   /* Visual claro e minimalista: imagem suave com véu branco */
