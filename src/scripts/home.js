@@ -100,18 +100,14 @@ export function initHomeInteractions() {
     applyImage()
     lightbox.setAttribute('aria-hidden', 'false')
     document.documentElement.classList.add('menu-open')
-    // Mostra a dica (classe no container para CSS simples)
+    // Mostra a dica (fica visível enquanto o lightbox estiver aberto)
     if (lightbox) lightbox.classList.add('show-hint')
     if (lightboxHint) lightboxHint.style.display = 'inline-flex'
-    // Esconde automaticamente após 4s se o usuário não interagir
-    clearTimeout(openLightbox._hintTimer)
-    openLightbox._hintTimer = setTimeout(() => {
-      if (lightbox) lightbox.classList.remove('show-hint')
-    }, 4000)
   }
   const closeLightbox = () => {
     if (!lightbox) return
     lightbox.setAttribute('aria-hidden', 'true')
+    lightbox.classList.remove('show-hint')
     document.documentElement.classList.remove('menu-open')
   }
   const showNext = () => {
@@ -353,7 +349,6 @@ export function initHomeInteractions() {
     // On desktop (mouse): single click toggles zoom.
     // On touch: retain double-tap (within 320ms) to avoid accidental zoom on simple tap to navigate/swipe.
     lightboxImg.addEventListener('click', (e) => {
-      if (lightbox) lightbox.classList.remove('show-hint')
       // Se houve pan (arraste) desde o pointerdown, não considerar como click de toggle
       if (panMovedSinceDown) { panMovedSinceDown = false; return }
       if (lastPointerType === 'mouse') {
