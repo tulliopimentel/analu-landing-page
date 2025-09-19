@@ -137,7 +137,7 @@
       <section id="processos" class="section section--light quality">
         <div class="container reveal-on-scroll">
           <h2 class="section__title">Processos e Qualidade</h2>
-          <p class="quality__intro">Mais do que fabricar embalagens, nós desenhamos experiências seguras e sustentáveis. Do design ao descarte, cada etapa é acompanhada por controles rigorosos, reaproveitamento inteligente de materiais e validações que garantem desempenho, estética e menor impacto ambiental.</p>
+          <p class="quality__intro">Mais do que fabricar embalagens, nós desenhamos experiências seguras e sustentáveis. Cada etapa da produção é acompanhada por controles rigorosos de validações, desde o recebimento da matéria prima, processos de fabricação, armazenamento e entrega do produto final, tudo registrado em sistema. Provendo assim, qualidade, confiabilidade e rastreabilidade total dos produtos. Durante a fabricação, temos total reaproveitamento inteligente de materiais e análises de cores, isso garante desempenho, estética e menor impacto ambiental. </p>
 
           <div class="quality-steps">
             <div class="step">
@@ -153,7 +153,7 @@
               </div>
               <div class="step__content">
                 <h3>Formatos e Cores Sob Medida</h3>
-                <p>Modelamos frascos e potes para diferentes segmentos com precisão dimensional e paleta personalizada. A curadoria de cores garante consistência entre lotes, brilho controlado e aparência premium na gôndola, preservando a reciclabilidade do material.</p>
+                <p>Modelamos frascos e potes para diferentes segmentos com precisão dimensional, adaptabilidade para diversas tampas e paleta personalizada. Dispomos de uma paleta abundante de cores. Nossos pigmentos são de fontes comprometidas com a qualidade e consistência entre lotes, isso resulta em produto de aparência premium na gôndola.</p>
               </div>
             </div>
 
@@ -187,7 +187,7 @@
               </div>
               <div class="step__content">
                 <h3>Processo por Sopro de Alta Precisão</h3>
-                <p>Com controle térmico e de pressão, expandimos o parison no molde para atingir espessuras uniformes, boca perfeita para roscas e excelente resistência mecânica. O resultado é um recipiente leve, robusto e pronto para linhas de envase automatizadas.</p>
+                <p>Com controle térmico e de pressão, expandimos o parison no molde refrigerado, para atingir o formato do produto com espessuras uniformes, boca perfeita para tampas e excelente resistência mecânica. O resultado é um recipiente leve, robusto e pronto para linhas de envase automatizadas.</p>
               </div>
             </div>
 
@@ -204,7 +204,7 @@
               </div>
               <div class="step__content">
                 <h3>Validação e Ensaios de Qualidade</h3>
-                <p>Em cada lote, realizamos medições por amostragem, testes de queda, estanqueidade e torque de fechamento. Métricas são registradas para rastreabilidade e melhoria contínua, garantindo performance estável em toda a cadeia logística.</p>
+                <p>Em cada lote, realizamos medições por amostragem, testes de queda, estanqueidade e torque de fechamento. Métricas são registradas eletronicamente para rastreabilidade e melhoria contínua, garantindo performance estável em toda a cadeia logística.</p>
               </div>
             </div>
           </div>
