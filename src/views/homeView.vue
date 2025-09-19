@@ -137,7 +137,7 @@
       <section id="processos" class="section section--light quality">
         <div class="container reveal-on-scroll">
           <h2 class="section__title">Processos e Qualidade</h2>
-          <p class="quality__intro">Mais do que fabricar embalagens, nós desenhamos experiências seguras e sustentáveis. Cada etapa da produção é acompanhada por controles rigorosos de validações, desde o recebimento da matéria prima, processos de fabricação, armazenamento e entrega do produto final, tudo registrado em sistema. Provendo assim, qualidade, confiabilidade e rastreabilidade total dos produtos. Durante a fabricação, temos total reaproveitamento inteligente de materiais e análises de cores, isso garante desempenho, estética e menor impacto ambiental. </p>
+          <p class="quality__intro">Mais do que fabricar embalagens, nós desenhamos experiências seguras e sustentáveis. Cada etapa da produção é acompanhada por controles rigorosos de validações, desde o recebimento da matéria prima, processos de fabricação, armazenamento e entrega do produto final, tudo registrado em sistema. Provendo assim, qualidade, confiabilidade e rastreabilidade total dos produtos. <br /><br /> Durante a fabricação, temos total reaproveitamento inteligente de materiais e análises de cores, isso garante desempenho, estética e menor impacto ambiental. </p>
 
           <div class="quality-steps">
             <div class="step">
