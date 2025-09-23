@@ -83,11 +83,13 @@ export function initHomeInteractions() {
   // Build image groups (catalog & sustentabilidade)
   const catalogImages = catalogButtons.map((btn) => {
     const img = btn.querySelector('img')
-    return { src: img?.getAttribute('src') || '', alt: img?.getAttribute('alt') || '' }
+    const src = (img && (img.currentSrc || img.src || img.getAttribute('src'))) || ''
+    return { src, alt: (img?.getAttribute('alt') || img?.alt || '') }
   })
   const sustImages = sustButtons.map((btn) => {
     const img = btn.querySelector('img')
-    return { src: img?.getAttribute('src') || '', alt: img?.getAttribute('alt') || '' }
+    const src = (img && (img.currentSrc || img.src || img.getAttribute('src'))) || ''
+    return { src, alt: (img?.getAttribute('alt') || img?.alt || '') }
   })
   let activeImages = catalogImages
   let activeGroup = 'catalog'
@@ -180,41 +182,97 @@ export function initHomeInteractions() {
         track.scrollTo({ left: currentPage * getPageSize() })
       })
 
-      // Drag-scroll behavior (mouse only) – não intercepta toques para não travar scroll vertical em mobile
-      let pointerDown = false, startX = 0, startScrollLeft = 0, dragged = false, suppressClick = false
-      const onPointerDown = (clientX) => { pointerDown = true; dragged = false; track.classList.add('is-dragging'); startX = clientX; startScrollLeft = track.scrollLeft }
-      const onPointerMove = (clientX, evt) => {
-        if (!pointerDown) return
-        const delta = clientX - startX
-        if (Math.abs(delta) > 3) dragged = true
-        track.scrollLeft = startScrollLeft - delta
-        if (evt) evt.preventDefault()
+      // Drag-scroll behavior (mouse + touch) com detecção de intenção horizontal
+      let pointerDown = false, startX = 0, startY = 0, startScrollLeft = 0, dragged = false, suppressClick = false, touchDragging = false
+      const onPointerDown = (clientX, clientY) => {
+        pointerDown = true; dragged = false; touchDragging = false
+        track.classList.add('is-dragging')
+        startX = clientX; startY = clientY; startScrollLeft = track.scrollLeft
       }
-      const onPointerUp = () => {
+      const onPointerMove = (e) => {
+        if (!pointerDown) return
+        const dx = e.clientX - startX
+        const dy = e.clientY - startY
+        // Para toque: só ativa drag se movimento horizontal for predominante
+        if (e.pointerType !== 'mouse' && !touchDragging) {
+          if (Math.abs(dx) > 6 || Math.abs(dy) > 6) {
+            if (Math.abs(dx) > Math.abs(dy)) touchDragging = true
+            else { // liberar para scroll vertical da página
+              pointerDown = false
+              track.classList.remove('is-dragging')
+              return
+            }
+          } else {
+            return
+          }
+        }
+        // Mouse: considerar drag apenas após um pequeno threshold
+        if (e.pointerType === 'mouse' && Math.abs(dx) <= 3) return
+        if (Math.abs(dx) > 3) dragged = true
+        // Só impedir comportamento padrão quando de fato estiver arrastando
+        if (dragged || touchDragging) e.preventDefault()
+        if (dragged || touchDragging) track.scrollLeft = startScrollLeft - dx
+      }
+      const onPointerUp = (e) => {
         pointerDown = false
         track.classList.remove('is-dragging')
-        if (dragged) {
+        try { if (e?.pointerId != null && e.target && typeof e.target.releasePointerCapture === 'function') e.target.releasePointerCapture(e.pointerId) } catch {}
+        if (dragged || touchDragging) {
           suppressClick = true
           setTimeout(() => { suppressClick = false }, 150)
         }
       }
-      const isMousePointer = (e) => e.pointerType === 'mouse'
       track.addEventListener('pointerdown', (e) => {
-        if (!isMousePointer(e)) return // ignorar touch
-        try { if (e.pointerId != null && e.target && typeof e.target.setPointerCapture === 'function') e.target.setPointerCapture(e.pointerId) } catch {}
-        e.preventDefault()
-        onPointerDown(e.clientX)
+        onPointerDown(e.clientX, e.clientY)
       })
-      track.addEventListener('pointermove', (e) => { if (isMousePointer(e)) onPointerMove(e.clientX, e) })
-      track.addEventListener('pointerup', (e) => { if (!isMousePointer(e)) return; try { if (e.pointerId != null && e.target && typeof e.target.releasePointerCapture === 'function') e.target.releasePointerCapture(e.pointerId) } catch {}; onPointerUp() })
-      track.addEventListener('pointercancel', (e) => { if (isMousePointer(e)) onPointerUp() })
+      track.addEventListener('pointermove', (e) => onPointerMove(e))
+      track.addEventListener('pointerup', (e) => {
+        const wasDragged = dragged || touchDragging
+        onPointerUp(e)
+        if (!wasDragged && !suppressClick) {
+          const card = e.target && (e.target.closest ? e.target.closest('.catalog-card') : null)
+          if (card) {
+            let index
+            if (clickHandlerNamespace === 'catalog' && card.dataset && card.dataset.catalogIndex != null) {
+              const n = parseInt(card.dataset.catalogIndex, 10); if (!Number.isNaN(n)) index = n
+            } else if (clickHandlerNamespace === 'sustentabilidade' && card.dataset && card.dataset.sustentabilidadeIndex != null) {
+              const n = parseInt(card.dataset.sustentabilidadeIndex, 10); if (!Number.isNaN(n)) index = n
+            }
+            if (index == null) index = buttons.indexOf(card)
+            if (index >= 0) openLightbox(index, clickHandlerNamespace)
+          }
+        }
+      })
+      track.addEventListener('pointercancel', (e) => onPointerUp(e))
       // Prevent native image drag
       track.querySelectorAll('img').forEach((img) => img.addEventListener('dragstart', (ev) => ev.preventDefault()))
       buttons.forEach((btn, idx) => {
         btn.addEventListener('click', (ev) => {
           if (suppressClick) { ev.preventDefault(); return }
-          openLightbox(idx, clickHandlerNamespace)
+          // Preferir índice semântico vindo do data-* para evitar qualquer divergência
+          let index = idx
+          if (clickHandlerNamespace === 'catalog' && btn.dataset && btn.dataset.catalogIndex != null) {
+            const n = parseInt(btn.dataset.catalogIndex, 10); if (!Number.isNaN(n)) index = n
+          } else if (clickHandlerNamespace === 'sustentabilidade' && btn.dataset && btn.dataset.sustentabilidadeIndex != null) {
+            const n = parseInt(btn.dataset.sustentabilidadeIndex, 10); if (!Number.isNaN(n)) index = n
+          }
+          openLightbox(index, clickHandlerNamespace)
         })
+      })
+
+      // Fallback: clique no track encontra o botão mais próximo caso o evento de botão tenha sido bloqueado
+      track.addEventListener('click', (e) => {
+        if (suppressClick) return
+        const card = e.target && (e.target.closest ? e.target.closest('.catalog-card') : null)
+        if (!card) return
+        let index
+        if (clickHandlerNamespace === 'catalog' && card.dataset && card.dataset.catalogIndex != null) {
+          const n = parseInt(card.dataset.catalogIndex, 10); if (!Number.isNaN(n)) index = n
+        } else if (clickHandlerNamespace === 'sustentabilidade' && card.dataset && card.dataset.sustentabilidadeIndex != null) {
+          const n = parseInt(card.dataset.sustentabilidadeIndex, 10); if (!Number.isNaN(n)) index = n
+        }
+        if (index == null) index = buttons.indexOf(card)
+        if (index >= 0) openLightbox(index, clickHandlerNamespace)
       })
     }
 
