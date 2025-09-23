@@ -217,16 +217,16 @@
           <h2 class="section__title">Catálogo</h2>
           <div id="catalogTrack" class="grid catalog-grid" aria-label="Páginas do catálogo">
             <button class="catalog-card" type="button" data-catalog-index="0" aria-label="Abrir página 1 do catálogo">
-              <img src="../assets/catalogo1.png" alt="Página 1 do catálogo" loading="lazy" />
+              <img src="../assets/catalogo1.jpg" alt="Página 1 do catálogo" loading="lazy" />
             </button>
             <button class="catalog-card" type="button" data-catalog-index="1" aria-label="Abrir página 2 do catálogo">
-              <img src="../assets/catalogo2.png" alt="Página 2 do catálogo" loading="lazy" />
+              <img src="../assets/catalogo2.jpg" alt="Página 2 do catálogo" loading="lazy" />
             </button>
             <button class="catalog-card" type="button" data-catalog-index="2" aria-label="Abrir página 3 do catálogo">
-              <img src="../assets/catalogo3.png" alt="Página 3 do catálogo" loading="lazy" />
+              <img src="../assets/catalogo3.jpg" alt="Página 3 do catálogo" loading="lazy" />
             </button>
             <button class="catalog-card" type="button" data-catalog-index="3" aria-label="Abrir página 4 do catálogo">
-              <img src="../assets/catalogo4.png" alt="Página 4 do catálogo" loading="lazy" />
+              <img src="../assets/catalogo4.jpg" alt="Página 4 do catálogo" loading="lazy" />
             </button>
           </div>
           <div class="carousel-dots" id="catalogDots" aria-hidden="false"></div>
