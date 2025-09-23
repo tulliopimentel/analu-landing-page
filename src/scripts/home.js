@@ -73,6 +73,7 @@ export function initHomeInteractions() {
   let panY = 0
   // Canvas render state
   let originalBitmap = null // ImageBitmap ou HTMLImageElement da imagem atual
+  let lastCanvasGeom = null // { x, y, w, h } em pixels CSS dentro do canvas
   const applyTransform = () => {
     if (lightboxCanvas && originalBitmap) renderCanvas()
     else if (lightboxImg) lightboxImg.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`
@@ -428,6 +429,9 @@ export function initHomeInteractions() {
     const dx = cx - drawW / 2 + px
     const dy = cy - drawH / 2 + py
     ctx.drawImage(originalBitmap, 0, 0, iw, ih, dx, dy, drawW, drawH)
+
+    // Guardar geometria da última pintura em coordenadas CSS (não DPR)
+    lastCanvasGeom = { x: dx / dpr, y: dy / dpr, w: drawW / dpr, h: drawH / dpr }
   }
 
   // Gestos na imagem/canvas do lightbox: swipe, pinch‑to‑zoom e pan
@@ -563,6 +567,19 @@ export function initHomeInteractions() {
       targetEl.addEventListener('click', (e) => {
         // Prevent bubbling to the lightbox backdrop click handler
         e.stopPropagation()
+        // Se é o canvas e clicou fora da área desenhada, fechar
+        if (targetEl === lightboxCanvas && lastCanvasGeom) {
+          const rect = targetEl.getBoundingClientRect()
+          const x = e.clientX - rect.left
+          const y = e.clientY - rect.top
+          const inside = (
+            x >= lastCanvasGeom.x &&
+            y >= lastCanvasGeom.y &&
+            x <= lastCanvasGeom.x + lastCanvasGeom.w &&
+            y <= lastCanvasGeom.y + lastCanvasGeom.h
+          )
+          if (!inside) { closeLightbox(); return }
+        }
         if (panMovedSinceDown) { panMovedSinceDown = false; return }
         if (lastPointerType === 'mouse') { toggleZoom(); return }
         const now = Date.now()
