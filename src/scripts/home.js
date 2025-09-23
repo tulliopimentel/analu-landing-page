@@ -56,7 +56,8 @@ export function initHomeInteractions() {
   // Sustentabilidade carousel elements
   const sustTrack = document.getElementById('sustentabilidadeTrack')
   const sustDots = document.getElementById('sustentabilidadeDots')
-  const sustButtons = Array.from(document.querySelectorAll('#sustentabilidadeTrack .sustentabilidade-card'))
+  // Reuse the same card class used in Catálogo so both sections share the behavior
+  const sustButtons = Array.from(document.querySelectorAll('#sustentabilidadeTrack .catalog-card'))
   const lightbox = document.getElementById('lightbox')
   const lightboxImg = document.getElementById('lightboxImg')
   const lightboxHint = document.querySelector('.lightbox__hint')
