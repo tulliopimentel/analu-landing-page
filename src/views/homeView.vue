@@ -261,6 +261,7 @@
       <div class="lightbox__img-wrap">
   <div class="lightbox__hint" aria-hidden="true">Clique ou Toque para Ampliar</div>
         <img class="lightbox__img" id="lightboxImg" alt="Página ampliada do catálogo" />
+        <canvas class="lightbox__canvas" id="lightboxCanvas"></canvas>
         <button class="lightbox__btn lightbox__close" id="lightboxClose" aria-label="Fechar">✕</button>
         <button class="lightbox__btn lightbox__prev" id="lightboxPrev" aria-label="Anterior">‹</button>
         <button class="lightbox__btn lightbox__next" id="lightboxNext" aria-label="Próxima">›</button>
