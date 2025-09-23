@@ -42,7 +42,7 @@
         </picture>
         <div class="container hero__content reveal-on-scroll">
           <h1 class="hero__title">Plástico com responsabilidade</h1>
-          <p class="hero__subtitle">Fábrica de embalagens com foco em soluções biodegradáveis e sustentáveis.</p>
+          <p class="hero__subtitle">Fábrica de embalagens com soluções biodegradáveis e sustentáveis.</p>
           <div class="hero__cta">
             <a class="btn btn--primary" href="#contato">Fale conosco</a>
             <a class="btn btn--ghost" href="#processos">Ver vídeos</a>
