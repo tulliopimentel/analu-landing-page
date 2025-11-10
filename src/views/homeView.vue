@@ -299,6 +299,9 @@
           ></iframe>
         </div>
         </div>
+        <div class="contact__cta">
+          <a class="btn btn--whatsapp" href="https://wa.me/5511911480005" target="_blank" rel="noopener">Falar no WhatsApp</a>
+        </div>
       </div>
     </section>
 
