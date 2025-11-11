@@ -274,6 +274,10 @@
         <div class="grid grid--2col contact-grid">
         <ul class="contact__list" role="list">
           <li>
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6.6 2h10.8A2.6 2.6 0 0 1 20 4.6v14.8A2.6 2.6 0 0 1 17.4 22H6.6A2.6 2.6 0 0 1 4 19.4V4.6A2.6 2.6 0 0 1 6.6 2Zm5.4 18.2a1.4 1.4 0 1 0 0-2.8 1.4 1.4 0 0 0 0 2.8Zm4.6-3.8V5.6H7.4v10.8Z"/></svg>
+            <a href="https://wa.me/5511911480005" target="_blank" rel="noopener" aria-label="Conversar no WhatsApp com Super Sopro">+55 (11) 91148-0005</a>
+          </li>
+          <li>
             <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z"/></svg>
             <a href="mailto:contato@supersopro.com.br">contato@supersopro.com.br</a>
           </li>
